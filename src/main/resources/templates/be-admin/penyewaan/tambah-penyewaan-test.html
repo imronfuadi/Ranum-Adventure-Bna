@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="id" xmlns:th="http://www.thymeleaf.org">
+
+<div th:replace="~{'be-admin/head' :: head}"></div>
+
+<body>
+	<!-- tap on top start-->
+	<div class="tap-top">
+		<span class="lnr lnr-chevron-up"></span>
+	</div>
+	<!-- tap on tap end-->
+
+	<!-- page-wrapper Start-->
+	<div class="page-wrapper compact-wrapper dark-sidebar" id="pageWrapper">
+		<!-- Page Header Start-->
+		<div th:replace="~{'be-admin/header' :: header}"></div>
+		<!-- Page Header Ends-->
+
+		<!-- Page Body Start-->
+		<div class="page-body-wrapper">
+			<!-- Page Sidebar Start-->
+			<div th:replace="~{'be-admin/sidebar' :: sidebar}"></div>
+			<!-- Page Sidebar Ends-->
+
+			<!-- Container-fluid starts-->
+			<div class="page-body">
+				<!-- Error messages -->
+				<div id="alert-error" th:if="${param.error != null and param.error.contains('stok_kurang')}" class="alert alert-warning">
+					Jumlah barang di keranjang sudah mencapai batas stok.
+				</div>
+				<div id="alert-error" th:if="${param.error != null and param.error.contains('stok_habis')}" class="alert alert-danger">
+					Stok barang habis.
+				</div>
+				<div id="alert-error" th:if="${param.error != null and param.error.contains('barang_not_found')}"
+					class="alert alert-danger">
+					Barang tidak ditemukan.
+				</div>
+				<div id="alert-success" th:if="${param.success != null and param.success.contains('barang_ditambahkan')}"
+					class="alert alert-success">
+					Barang berhasil ditambahkan ke keranjang.
+				</div>
+
+				<div class="title-header">
+					<h5>Tambah Penyewaan</h5>
+				</div>
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="card">
+								<div class="card-body">
+									<div class="container justify-content-center mt-50 mb-50">
+
+										<div class="row">
+											<div class="col-md-12">
+
+												<div class="card card-body mt-3 p-2" th:each="b, stat :${barangList}">
+													<div
+														class="media align-items-center align-items-lg-start text-center text-lg-left flex-column flex-lg-row">
+														<div class="mr-2 mb-3 mb-lg-0">
+
+															<img th:src="${b.photosBarangPath}" width="100" height="120"
+																alt="">
+
+														</div>
+
+														<div class="media-body">
+															<h4 class="media-title font-weight-semibold mb-1"
+																th:text="${b.namaBarang}">
+																<!--<a href="#" data-abc="true">Apple iPhone XR (Red, 128
+																	GB)</a>-->
+															</h4>
+
+															<ul class="list-inline list-inline-dotted mb-1 mb-lg-1">
+																<li class="list-inline-item"><a href="#"
+																		class="text-muted" data-abc="true"
+																		th:text="${b.Kategori.namaKategori}"></a>
+																</li>
+															</ul>
+
+															<p class="mb-1" th:text="${b.deskripsi}"></p>
+
+															<!--<ul class="list-inline list-inline-dotted mb-0">
+																<li class="list-inline-item">All items from <a href="#"
+																		data-abc="true">Mobile point</a></li>
+																<li class="list-inline-item">Add to <a href="#"
+																		data-abc="true">wishlist</a>
+																</li>
+															</ul>-->
+														</div>
+
+														<div class="mt-1 mt-lg-0 ml-lg-3 text-center">
+															<h4 class="mb-1 font-weight-semibold" th:text="${'Rp.' + #numbers.formatDecimal(b.harga, 0, 'POINT', 0, 'COMMA')}">
+															</h4>
+
+															<!--<div>
+																<i class="fa fa-star"></i>
+																<i class="fa fa-star"></i>
+																<i class="fa fa-star"></i>
+																<i class="fa fa-star"></i>
+
+															</div>-->
+
+															<div class="text-muted" th:text="'Stok:' + ${b.jumlah}">
+															</div>
+
+															<form
+																th:action="@{/keranjang/tambah/{id}(id=${b.barangId})}"
+																method="post">
+																<button type="submit"
+																	class="btn btn-warning mt-1 text-white"><i
+																		class="icon-cart-add mr-1"></i> Add to
+																	cart</button>
+															</form>
+														</div>
+													</div>
+												</div>
+
+
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- Container-fluid Ends-->
+
+				<div th:replace="~{'be-admin/footer' :: footer}"></div>
+			</div>
+		</div>
+	</div>
+	<!-- page-wrapper End-->
+
+	<!-- Modal Start -->
+	<div th:replace="~{'be-admin/modal' :: modal}"></div>
+	<!-- Modal End -->
+
+	<div th:replace="~{'be-admin/script' :: script}"></div>
+	
+	<!-- Tambahkan script di bagian bawah file -->
+	<script>
+		// Hilangkan alert-success setelah 3 detik
+		const alertSuccess = document.getElementById('alert-success');
+		if (alertSuccess) {
+			setTimeout(() => {
+				alertSuccess.style.transition = "opacity 0.5s";
+				alertSuccess.style.opacity = 0;
+				setTimeout(() => alertSuccess.remove(), 500); // remove node after fade-out
+			}, 3000); // 3 detik
+		}
+
+		// Hilangkan alert-error setelah 3 detik
+		const alertError = document.getElementById('alert-error');
+		if (alertError) {
+			setTimeout(() => {
+				alertError.style.transition = "opacity 0.5s";
+				alertError.style.opacity = 0;
+				setTimeout(() => alertError.remove(), 500);
+			}, 3000); // 3 detik
+		}
+	</script>
+	
+</body>
+
+</html>

@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="id" xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="sidebar">
+	<div class="sidebar-wrapper">
+		<div>
+			<div class="logo-wrapper logo-wrapper-center">
+				<a href="index.html" data-bs-original-title="" title=""> <img class="img-fluid for-dark"
+						src="../../assets/images/logo/logo-white.png" alt="">
+				</a>
+				<div class="back-btn">
+					<i class="fa fa-angle-left"></i>
+				</div>
+				<div class="toggle-sidebar">
+					<i class="status_toggle middle sidebar-toggle" data-feather="grid"></i>
+				</div>
+			</div>
+			<div class="logo-icon-wrapper">
+				<a href="index.html"> <img class="img-fluid main-logo" src="../../assets/images/logo/logo.png"
+						alt="logo">
+				</a>
+			</div>
+			<nav class="sidebar-main">
+				<div class="left-arrow" id="left-arrow">
+					<i data-feather="arrow-left"></i>
+				</div>
+
+				<div id="sidebar-menu">
+					<ul class="sidebar-links" id="simple-bar">
+						<li class="back-btn"></li>
+						<li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" th:href="@{/user/home}">
+								<i data-feather="home"></i> <span>Dashboard</span>
+							</a></li>
+						<hr style="color: white;">
+						<li class="sidebar-list"><a class="sidebar-link sidebar-title" href="javascript:void(0)">
+								<i data-feather="users"></i> <span>Profil Edit</span>
+							</a>
+							<ul class="sidebar-submenu">
+								<li><a th:href="@{/user/editPassword}">Edit Password</a></li>
+							</ul>
+						</li>
+						
+						<li class="sidebar-list"><a class="linear-icon-link sidebar-link sidebar-title"
+								href="javascript:void(0)"> <i data-feather="users"></i> <span>Produk</span>
+							</a>
+							<!--<ul class="sidebar-submenu">
+								<li><a href="vendor-list.html">Berita</a></li>
+
+								<li><a href="create-vendor.html">Slider</a></li>
+							</ul>-->
+						</li>
+
+						<!--<li class="sidebar-list"><a class="sidebar-link sidebar-title" href="javascript:void(0)">
+								<i data-feather="archive"></i> <span>UMKM Validasi</span>
+							</a>
+							<ul class="sidebar-submenu">
+								<li><a href="order-list.html">UMKM</a></li>
+								<li><a href="order-detail.html">UMKM Produk</a></li>
+								<li><a href="order-tracking.html">Jenis UMKM</a></li>
+								<li><a href="order-list.html">Jenis Produk</a></li>
+								<li><a href="order-detail.html">UMKM Verifikasi</a></li>
+								<li><a href="order-tracking.html">UMKM Unggulan</a></li>
+								<li><a href="order-tracking.html">UMKM Binaan</a></li>
+							</ul>
+						</li>-->
+
+						<li class="sidebar-list"><a class="linear-icon-link sidebar-link sidebar-title"
+								href="javascript:void(0)"> <i data-feather="users"></i> <span>Ganti Pasword</span>
+							</a>
+							<!--<ul class="sidebar-submenu">
+								<li><a href="vendor-list.html">Berita</a></li>
+
+								<li><a href="create-vendor.html">Slider</a></li>
+							</ul>-->
+						</li>
+
+						<!--<li class="sidebar-list"><a class="linear-icon-link sidebar-link sidebar-title"
+								href="javascript:void(0)"> <i data-feather="users"></i> <span>Laporan</span>
+							</a>
+							<ul class="sidebar-submenu">
+								<li><a href="vendor-list.html">UMKM Bidang Usaha</a></li>
+
+								<li><a href="create-vendor.html">UMKM Kecamatan/Kelurahan</a></li>
+
+								<li><a href="create-vendor.html">UMKM Unggulan</a></li>
+
+								<li><a href="create-vendor.html">UMKM Binaan</a></li>
+							</ul>
+						</li>-->
+
+						<!--<li class="sidebar-list"><a class="linear-icon-link sidebar-link sidebar-title"
+								href="javascript:void(0)"> <i data-feather="users"></i> <span>Master</span>
+							</a>
+							<ul class="sidebar-submenu">
+								<li><a href="translation.html">Ref Provinsi</a></li>
+
+								<li><a href="currency-rates.html">Ref Kota/Kabupaten</a></li>
+
+								<li><a href="taxes.html">Ref Kecamatan</a></li>
+
+								<li><a href="taxes.html">Ref Kelurahan/Desa</a></li>
+							</ul>
+						</li>-->
+
+						<!--<li class="sidebar-list"><a class="linear-icon-link sidebar-link sidebar-title"
+								href="javascript:void(0)"> <i data-feather="box"></i> <span>Product</span>
+							</a>
+							<ul class="sidebar-submenu">
+								<li><a th:href="@{/product/list}">Prodcts</a></li>
+
+								<li><a th:href="@{/product/new}">Add New Products</a></li>
+							</ul>
+						</li>-->
+
+						<!--<li class="sidebar-list"><a class="linear-icon-link sidebar-link sidebar-title"
+								href="javascript:void(0)"> <i data-feather="box"></i> <span>UMKM</span>
+							</a>
+							<ul class="sidebar-submenu">
+								<li><a th:href="@{/umkm/list}">UMKM</a></li>
+
+								<li><a th:href="@{/umkm/new}">Add New UMKM</a></li>
+							</ul>
+						</li>-->
+
+						<!--<li class="sidebar-list"><a class="linear-icon-link sidebar-link sidebar-title"
+								href="javascript:void(0)"> <i data-feather="box"></i> <span>Chart</span>
+							</a>
+							<ul class="sidebar-submenu">
+								<li><a th:href="@{/chart/chartList}">Bar Chart</a></li>
+								<li><a th:href="@{/chart/pieChart}">Pie Chart</a></li>
+							</ul>
+						</li>-->
+
+						<!--<li class="sidebar-list"><a class="linear-icon-link sidebar-link sidebar-title"
+								href="javascript:void(0)"> <i data-feather="box"></i> <span>Province</span>
+							</a>
+							<ul class="sidebar-submenu">
+								<li><a th:href="@{/province/list}">Province</a></li>
+
+								<li><a th:href="@{/province/new}">Add New Province</a></li>
+							</ul>
+						</li>
+
+						<li class="sidebar-list"><a class="linear-icon-link sidebar-link sidebar-title"
+								href="javascript:void(0)"> <i data-feather="box"></i> <span>City</span>
+							</a>
+							<ul class="sidebar-submenu">
+								<li><a th:href="@{/city/list}">City</a></li>
+
+								<li><a th:href="@{/city/new}">Add New City</a></li>
+							</ul>
+						</li>
+
+						<li class="sidebar-list"><a class="linear-icon-link sidebar-link sidebar-title"
+								href="javascript:void(0)"> <i data-feather="box"></i> <span>Subdistrict</span>
+							</a>
+							<ul class="sidebar-submenu">
+								<li><a th:href="@{/subdistrict/list}">Subdistrict</a></li>
+
+								<li><a th:href="@{/subdistrict/new}">Add New Subdistrict</a></li>
+							</ul>
+						</li>
+
+						<li class="sidebar-list"><a class="linear-icon-link sidebar-link sidebar-title"
+								href="javascript:void(0)"> <i data-feather="box"></i> <span>Village</span>
+							</a>
+							<ul class="sidebar-submenu">
+								<li><a th:href="@{/village/list}">Village</a></li>
+
+								<li><a th:href="@{/village/new}">Add New Village</a></li>
+							</ul>
+						</li>-->
+
+						<!--<li class="sidebar-list"><a class="linear-icon-link sidebar-link sidebar-title"
+								href="javascript:void(0)"> <i data-feather="box"></i> <span>Slider</span>
+							</a>
+							<ul class="sidebar-submenu">
+								<li><a th:href="@{/slider/list}">Slider</a></li>
+
+								<li><a th:href="@{/slider/new}">Add New Slider</a></li>
+							</ul>
+						</li>-->
+						
+						<!--<li class="sidebar-list"><a class="linear-icon-link sidebar-link sidebar-title"
+								href="javascript:void(0)"> <i data-feather="box"></i> <span>Berita</span>
+							</a>
+							<ul class="sidebar-submenu">
+								<li><a th:href="@{/berita/list}">Berita</a></li>
+
+								<li><a th:href="@{/berita/new}">Tambah Berita Baru</a></li>
+							</ul>
+						</li>-->
+
+						<!--<li class="sidebar-list"><a class="linear-icon-link sidebar-link sidebar-title"
+								href="javascript:void(0)"> <i data-feather="align-left"></i>
+								<span>Setting</span>
+							</a>
+							<ul class="sidebar-submenu">
+								<li><a href="menu-lists.html">User</a></li>
+
+								<li><a href="create-menu.html">User Role</a></li>
+
+								<li><a href="create-menu.html">Web Profile</a></li>
+							</ul>
+						</li>-->
+						
+						<li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" th:href="@{/custom-logout}" data-bs-toggle="modal"
+																		data-bs-target="#modalKeluar"
+																		onclick="setKeluarUrl(this)">
+								<i data-feather="home"></i> <span>Logout</span>
+							</a></li>
+
+						<!--<li class="sidebar-list"><a class="linear-icon-link sidebar-link sidebar-title"
+								href="javascript:void(0)"> <i data-feather="tag"></i> <span>Coupons</span>
+							</a>
+							<ul class="sidebar-submenu">
+								<li><a href="coupon-list.html">Coupon List</a></li>
+
+								<li><a href="create-coupon.html">Create Coupon</a></li>
+							</ul>
+						</li>
+
+						<li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav"
+								href="product-review.html"> <i data-feather="star"></i> <span>Product
+									Review</span>
+							</a></li>
+
+						<li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="invoice.html">
+								<i data-feather="archive"></i> <span>Invoice</span>
+							</a></li>
+
+						<li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav"
+								href="support-ticket.html"> <i data-feather="phone"></i> <span>Support
+									Ticket</span>
+							</a></li>
+
+						<li class="sidebar-list"><a class="linear-icon-link sidebar-link sidebar-title"
+								href="javascript:void(0)"> <i data-feather="settings"></i> <span>Settings</span>
+							</a>
+							<ul class="sidebar-submenu">
+								<li><a href="profile-setting.html">Profile Setting</a></li>
+							</ul>
+						</li>
+
+						<li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="reports.html">
+								<i data-feather="file-text"></i> <span>Reports</span>
+							</a></li>
+
+						<li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="list-page.html">
+								<i data-feather="list"></i> <span>List Page</span>
+							</a></li>
+
+						<li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="login.html">
+								<i data-feather="log-in"></i> <span>Log In</span>
+							</a></li>
+
+						<li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav"
+								href="forgot-password.html"> <i data-feather="key"></i> <span>Forgot
+									Password</span>
+							</a></li>
+
+						<li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="sign-up.html">
+								<i data-feather="plus-circle"></i> <span>Register</span>
+							</a></li>-->
+					</ul>
+				</div>
+				<div class="right-arrow" id="right-arrow">
+					<i data-feather="arrow-right"></i>
+				</div>
+			</nav>
+		</div>
+	</div>
+</div>
+
+</html>

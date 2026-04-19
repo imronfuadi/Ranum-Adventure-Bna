@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="id" xmlns:th="http://www.thymeleaf.org">
+
+<div th:replace="~{'be-admin/head' :: head}"></div>
+
+<body>
+	<!-- tap on top start -->
+	<div class="tap-top">
+		<span class="lnr lnr-chevron-up"></span>
+	</div>
+	<!-- tap on tap end -->
+
+	<!-- page-wrapper start -->
+	<div class="page-wrapper compact-wrapper dark-sidebar" id="pageWrapper">
+		<!-- Page Header start -->
+		<div th:replace="~{'be-admin/header' :: header}"></div>
+		<!-- Page Header end -->
+
+		<!-- Page Body start -->
+		<div class="page-body-wrapper">
+			<!-- Page Sidebar Start-->
+			<div th:replace="~{'be-admin/sidebar' :: sidebar}"></div>
+			<!-- Page Sidebar Ends-->
+
+			<div class="page-body">
+				<div class="title-header">
+					<h5>Edit Pengembalian(Denda)</h5>
+				</div>
+
+				<!-- New Product Add Start -->
+				<form th:action="@{/pengembalian/update/{id}(id=${pengembalian.id})}" th:object="${pengembalian}"
+					method="post" enctype="multipart/form-data">
+					<div class="container-fluid">
+						<div class="row">
+							<div class="col-12">
+								<div class="row">
+									<div class="col-sm-12">
+										<div class="card">
+											<div class="card-body">
+
+
+												<div class="theme-form theme-form-2 mega-form">
+													<div class="row">
+
+														<div class="mb-4 row align-items-center">
+															<label class="form-label-title col-sm-2 mb-0">Denda</label>
+															<div class="col-sm-10">
+																<input class="form-control" type="text"
+																	th:field="*{denda}" id="denda" name="denda">
+															</div>
+														</div>
+														<div class="mb-4 row align-items-center">
+															<label
+																class="form-label-title col-sm-2 mb-0">Keterangan</label>
+															<div class="col-sm-10">
+																<textarea class="form-control" th:field="*{keterangan}"
+																	id="keterangan" name="keterangan"
+																	rows="3"></textarea>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+
+
+										<div class="card">
+											<div class="card-body">
+
+												<div class="theme-form theme-form-2 mega-form">
+													<div class="row">
+														<div class="col-12">
+															<div class="row">
+																<button type="submit"
+																	class="btn btn-success float-right">
+																	<i class="fas fa-plus-square">Edit</i>
+																</button>
+																<hr>
+																<a th:href="@{/pengembalian/riwayat}"
+																	class="btn btn-primary float-left"><i
+																		class="fas fa-angle-left">Back</i></a>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</form>
+				<!-- New Product Add End -->
+
+				<!-- footer Start -->
+				<div th:replace="~{'be-admin/footer' :: footer}"></div>
+				<!-- footer En -->
+			</div>
+			<!-- Container-fluid End -->
+		</div>
+		<!-- Page Body End -->
+	</div>
+	<!-- page-wrapper End -->
+
+	<!-- Modal Start -->
+	<div th:replace="~{'be-admin/modal' :: modal}"></div>
+	<!-- Modal End -->
+
+	<div th:replace="~{'be-admin/script' :: script}"></div>
+
+</body>
+
+</html>

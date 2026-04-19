@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="id" xmlns:th="http://www.thymeleaf.org">
+
+<div th:replace="~{'be-user/head' :: head}"></div>
+
+<body>
+	<!-- tap on top start-->
+	<div class="tap-top">
+		<span class="lnr lnr-chevron-up"></span>
+	</div>
+	<!-- tap on tap end-->
+
+	<!-- page-wrapper Start-->
+	<div class="page-wrapper compact-wrapper dark-sidebar" id="pageWrapper">
+		<!-- Page Header Start-->
+		<div th:replace="~{'be-user/header' :: header}"></div>
+		<!-- Page Header Ends-->
+
+		<!-- Page Body Start-->
+		<div class="page-body-wrapper">
+			<!-- Page Sidebar Start-->
+			<div th:replace="~{'be-user/sidebar' :: sidebar}"></div>
+			<!-- Page Sidebar Ends-->
+
+			<!-- Container-fluid starts-->
+			<div class="page-body">
+				<div class="title-header">
+					<h5>Bar Chart</h5>
+				</div>
+
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="card">
+								<div class="card-body">
+									<div class="container">
+										<canvas id="myBarChart"></canvas>
+									</div>
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="title-header">
+					<h5>Pie Chart</h5>
+				</div>
+				
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="card">
+								<div class="card-body">
+									<div class="container">
+										<canvas id="myPieChart"></canvas>
+									</div>
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- Container-fluid Ends-->
+
+				<div th:replace="~{'be-user/footer' :: footer}"></div>
+			</div>
+		</div>
+	</div>
+	<!-- page-wrapper End-->
+
+	<!-- Modal Start -->
+	<div th:replace="~{'be-user/modal' :: modal}"></div>
+	<!-- Modal End -->
+
+	<div th:replace="~{'be-user/script' :: script}"></div>
+	<script th:inline="javascript">
+        /* Skrip JavaScript untuk membuat chart */
+        var labels = /*[[${labels}]]*/ [];
+        var data = /*[[${data}]]*/ [];
+
+        var ctx = document.getElementById('myBarChart').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+				/*labels: labels,*/
+                labels: ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"],
+                datasets: [{
+                    label: 'Dataset Label',
+                    data: data,
+                    backgroundColor: [
+                        'rgba(255, 99, 132)',
+                        'rgba(54, 162, 235)',
+                        'rgba(255, 206, 86)',
+                        'rgba(52, 235, 229)',
+                        'rgba(220, 52, 235)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+        
+        
+        /* Skrip JavaScript untuk membuat chart */
+		var labels = /*[[${labels}]]*/[];
+		var data = /*[[${data}]]*/[];
+
+		var ctx = document.getElementById('myPieChart').getContext('2d');
+		var myChart = new Chart(ctx, {
+			type: 'pie',
+			data: {
+				/*labels: labels,*/
+				labels: ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"],
+				datasets: [{
+					label: 'Dataset Label',
+					data: data,
+					backgroundColor: [
+						'rgba(166, 7, 7)',
+						'rgba(166, 92, 7)',
+						'rgba(184, 184, 6)',
+						'rgba(189, 52, 235)',
+						'rgba(7, 17, 166)',
+						'rgba(7, 166, 55)'
+					],
+					borderColor: "transparent"
+				}]
+			},
+			options: {
+				maintainAspectRatio: false,
+				cutoutPercentage: 65,
+			}
+		});
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="id" xmlns:th="http://www.thymeleaf.org">
+
+<div th:replace="~{'be-admin/head' :: head}"></div>
+
+<body>
+	<!-- tap on top start-->
+	<div class="tap-top">
+		<span class="lnr lnr-chevron-up"></span>
+	</div>
+	<!-- tap on tap end-->
+
+	<!-- page-wrapper Start-->
+	<div class="page-wrapper compact-wrapper dark-sidebar" id="pageWrapper">
+		<!-- Page Header Start-->
+		<div th:replace="~{'be-admin/header' :: header}"></div>
+		<!-- Page Header Ends-->
+
+		<!-- Page Body Start-->
+		<div class="page-body-wrapper">
+			<!-- Page Sidebar Start-->
+			<div th:replace="~{'be-admin/sidebar' :: sidebar}"></div>
+			<!-- Page Sidebar Ends-->
+
+			<!-- Container-fluid starts-->
+			<div class="page-body">
+				<div class="title-header">
+					<h5>Pembayaran</h5>
+				</div>
+
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="card">
+								<div class="card-body">
+									<div>
+
+										<body class="page-body">
+
+											<!-- Alert jika ada error -->
+											<div th:if="${error}" class="alert alert-danger" th:text="${error}">
+											</div>
+
+											<!-- Informasi Penyewaan -->
+											<div class="card p-3 mb-3">
+												<h5>Penyewa: <span th:text="${pelanggan.nama}"></span>
+												</h5>
+												<h5>Total Harga: <span
+														th:text="${'Rp. ' + #numbers.formatDecimal(grandTotal, 0, 'POINT', 0, 'COMMA')}"></span>
+												</h5>
+											</div>
+
+											<!-- Form pembayaran -->
+											<form th:action="@{/penyewaan/bayar}" method="post" enctype="multipart/form-data">
+												<input type="hidden" name="penyewaId"
+													th:value="${pelanggan.pelangganId}">
+													
+												<input type="hidden" name="totalHarga"
+													th:value="${totalHarga}">
+													
+												<input type="hidden" name="lamaSewa"
+													th:value="${lamaSewa}">
+
+												<div class="form-group mb-3">
+													<label>Metode Pembayaran</label>
+													<select class="form-select" name="metodePembayaran"
+														id="metodePembayaran" onchange="toggleUploadField()" required>
+														<option value="" disabled selected>Pilih metode pembayaran
+														</option>
+														<option value="Tunai">Tunai</option>
+														<option value="Transfer">Transfer</option>
+														<!--<option value="Kartu Kredit">Kartu Kredit</option>-->
+													</select>
+												</div>
+
+												<!--<div class="form-group mb-3">
+													<label>Jumlah Uang Dibayar</label>
+													<input type="number" class="form-control" name="jumlahBayar"
+														required>
+												</div>-->
+
+												<div class="form-group mb-3" id="uploadDiv" style="display: none;">
+													<label>Upload file</label>
+													<input type="file" class="form-control" name="file">
+												</div>
+
+												<button class="btn btn-success w-100 mt-3" type="submit">Bayar</button>
+											</form>
+									</div>
+								</div>
+
+								<div class="pagination-box" th:if="${totalPages > 0}">
+									<nav aria-label="...">
+										<ul class="pagination pagination-primary">
+											<li class="page-item" th:classappend="${currentPage == 0} ? 'disabled'">
+												<a class="page-link"
+													th:href="@{/penyewaan/list(page=${currentPage - 1})}"
+													tabindex="-1">Previous</a>
+											</li>
+
+											<th:block th:if="${currentPage > 2}">
+												<li class="page-item">
+													<a class="page-link" th:href="@{'/penyewaan/list?page=0'}">1</a>
+												</li>
+												<li class="page-item disabled">
+													<span class="page-link">...</span>
+												</li>
+											</th:block>
+
+											<th:block
+												th:each="pageNumber : ${#numbers.sequence(currentPage - 1, currentPage + 1)}"
+												th:if="${pageNumber >= 0 and pageNumber < totalPages}">
+												<li class="page-item"
+													th:classappend="${currentPage == pageNumber} ? 'active'">
+													<a class="page-link"
+														th:href="@{'/penyewaan/list?page=' + ${pageNumber}}">[[${pageNumber
+														+
+														1}]]</a>
+												</li>
+											</th:block>
+
+											<th:block th:if="${currentPage < totalPages - 3}">
+												<li class="page-item disabled">
+													<span class="page-link">...</span>
+												</li>
+												<li class="page-item">
+													<a class="page-link"
+														th:href="@{/penyewaan/list(page= ${totalPages - 1})}">[[${totalPages}]]</a>
+												</li>
+											</th:block>
+
+											<li class="page-item"
+												th:classappend="${currentPage == (totalPages - 1)} ? 'disabled'">
+												<a class="page-link"
+													th:href="@{/penyewaan/list(page=${currentPage + 1})}">Next</a>
+											</li>
+										</ul>
+									</nav>
+								</div>
+
+								<!--<div class="pagination-box">
+									<nav class="ms-auto me-auto " aria-label="...">
+										<ul class="pagination pagination-primary">
+											<li class="page-item disabled">
+												<a class="page-link" href="javascript:void(0)"
+													tabindex="-1">Previous</a>
+											</li>
+
+											<li class="page-item active">
+												<a class="page-link" href="javascript:void(0)">1</a>
+											</li>
+											<li class="page-item">
+												<a class="page-link" href="javascript:void(0)">2 <span
+														class="sr-only">(current)</span>
+												</a>
+											</li>
+
+											<li class="page-item">
+												<a class="page-link" href="javascript:void(0)">3</a>
+											</li>
+
+											<li class="page-item">
+												<a class="page-link" href="javascript:void(0)">Next</a>
+											</li>
+										</ul>
+									</nav>
+								</div>-->
+
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- Container-fluid Ends-->
+
+				<div th:replace="~{'be-admin/footer' :: footer}"></div>
+			</div>
+		</div>
+	</div>
+	<!-- page-wrapper End-->
+
+	<!-- Modal Start -->
+	<div th:replace="~{'be-admin/modal' :: modal}"></div>
+	<!-- Modal End -->
+
+	<div th:replace="~{'be-admin/script' :: script}"></div>
+
+	<script>
+		function toggleUploadField() {
+			const metode = document.getElementById('metodePembayaran').value;
+			const uploadDiv = document.getElementById('uploadDiv');
+
+			if (metode === 'Transfer') {
+				uploadDiv.style.display = 'block';
+				uploadDiv.querySelector('input[type="file"]').required = true;
+			} else {
+				uploadDiv.style.display = 'none';
+				uploadDiv.querySelector('input[type="file"]').required = false;
+			}
+		}
+	</script>
+
+</body>
+
+</html>

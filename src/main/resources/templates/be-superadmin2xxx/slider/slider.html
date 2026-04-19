@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="id" xmlns:th="http://www.thymeleaf.org">
+
+<div th:replace="~{'be-admin/head' :: head}"></div>
+
+<body>
+	<!-- tap on top start-->
+	<div class="tap-top">
+		<span class="lnr lnr-chevron-up"></span>
+	</div>
+	<!-- tap on tap end-->
+
+	<!-- page-wrapper Start-->
+	<div class="page-wrapper compact-wrapper dark-sidebar" id="pageWrapper">
+		<!-- Page Header Start-->
+		<div th:replace="~{'be-admin/header' :: header}"></div>
+		<!-- Page Header Ends-->
+
+		<!-- Page Body Start-->
+		<div class="page-body-wrapper">
+			<!-- Page Sidebar Start-->
+			<div th:replace="~{'be-admin/sidebar' :: sidebar}"></div>
+			<!-- Page Sidebar Ends-->
+
+			<!-- Container-fluid starts-->
+			<div class="page-body">
+				<div class="title-header">
+					<h5>Slider List</h5>
+				</div>
+
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="card">
+								<div class="card-body">
+									<div>
+										<div class="table-responsive table-desi table-product">
+											<table class="table table-1d all-package">
+												<thead>
+													<tr>
+														<th>Id</th>
+														<th>Slider Image</th>
+														<th>Option</th>
+													</tr>
+												</thead>
+
+												<tbody>
+													<tr th:each="s :${sliders}">
+														<td th:text="${s.id}"></td>
+														<td>
+															<img th:src="${s.photosImagePath}" class="img-fluid" alt=""
+																style="width:50px; height:70px;">
+														</td>
+														<td>
+															<ul>
+
+																<li>
+																	<a th:href="@{/slider/form/{id}(id=${s.id})}">
+																		<span class="lnr lnr-pencil"></span>
+																	</a>
+																</li>
+
+																<li>
+																	<a th:href="@{/slider/delete/{id}(id=${s.id})}"
+																		data-bs-toggle="modal"
+																		data-bs-target="#exampleModal"
+																		onclick="setDeleteUrl(this)">
+																		<i class="far fa-trash-alt theme-color"></i>
+																	</a>
+																</li>
+															</ul>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+
+								<div class="pagination-box">
+									<nav class="ms-auto me-auto " aria-label="...">
+										<ul class="pagination pagination-primary">
+											<li class="page-item disabled">
+												<a class="page-link" href="javascript:void(0)"
+													tabindex="-1">Previous</a>
+											</li>
+
+											<li class="page-item active">
+												<a class="page-link" href="javascript:void(0)">1</a>
+											</li>
+											<li class="page-item">
+												<a class="page-link" href="javascript:void(0)">2 <span
+														class="sr-only">(current)</span>
+												</a>
+											</li>
+
+											<li class="page-item">
+												<a class="page-link" href="javascript:void(0)">3</a>
+											</li>
+
+											<li class="page-item">
+												<a class="page-link" href="javascript:void(0)">Next</a>
+											</li>
+										</ul>
+									</nav>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- Container-fluid Ends-->
+
+				<div th:replace="~{'be-admin/footer' :: footer}"></div>
+			</div>
+		</div>
+	</div>
+	<!-- page-wrapper End-->
+
+	<!-- Modal Start -->
+	<div th:replace="~{'be-admin/modal' :: modal}"></div>
+	<!-- Modal End -->
+
+	<div th:replace="~{'be-admin/script' :: script}"></div>
+</body>
+
+</html>

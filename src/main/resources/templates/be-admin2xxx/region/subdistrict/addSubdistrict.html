@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="id" xmlns:th="http://www.thymeleaf.org">
+
+<div th:replace="~{'be/head' :: head}"></div>
+
+<body>
+	<!-- tap on top start -->
+	<div class="tap-top">
+		<span class="lnr lnr-chevron-up"></span>
+	</div>
+	<!-- tap on tap end -->
+
+	<!-- page-wrapper start -->
+	<div class="page-wrapper compact-wrapper dark-sidebar" id="pageWrapper">
+		<!-- Page Header start -->
+		<div th:replace="~{'be/header' :: header}"></div>
+		<!-- Page Header end -->
+
+		<!-- Page Body start -->
+		<div class="page-body-wrapper">
+			<!-- Page Sidebar Start-->
+			<div th:replace="~{'be/sidebar' :: sidebar}"></div>
+			<!-- Page Sidebar Ends-->
+
+			<div class="page-body">
+				<div class="title-header">
+					<h5>Add New Subdistrict</h5>
+				</div>
+
+				<!-- New Product Add Start -->
+				<form th:action="@{/subdistrict/submit}" th:object="${addNewSubdistrict}" method="post"
+					enctype="multipart/form-data">
+					<div class="container-fluid">
+						<div class="row">
+							<div class="col-12">
+								<div class="row">
+									<div class="col-sm-12">
+										<div class="card">
+											<div class="card-body">
+												<div class="card-header-2">
+													<h5>Subdistrict Information</h5>
+												</div>
+												<div class="theme-form theme-form-2 mega-form">
+													<div class="row">
+														<div class="mb-4 row align-items-center">
+															<label
+																class="col-sm-2 col-form-label form-label-title">Province</label>
+															<div class="col-sm-10">
+																<select class="js-example-basic-single w-100"
+																	id="province" name="province"
+																	onchange="fetchCities(this.value)">
+																	<option value="">Choose Province</option>
+																	<option th:each="province : ${listProvince}"
+																		th:value="${province.id}"
+																		th:text="${province.name}">
+																	</option>
+																</select>
+															</div>
+														</div>
+														<div class="mb-4 row align-items-center">
+															<label
+																class="col-sm-2 col-form-label form-label-title">City</label>
+															<div class="col-sm-10">
+																<select class="js-example-basic-single w-100" id="city"
+																	name="city" onchange="fetchSubdistrict(this.value)">
+																	<option value="">Choose City</option>
+																	<option th:each="city : ${listCity}"
+																		th:value="${city.id}" th:text="${city.name}">
+																	</option>
+																</select>
+															</div>
+														</div>
+														<div class="mb-4 row align-items-center">
+															<label
+																class="form-label-title col-sm-2 mb-0">Subdistrict</label>
+															<div class="col-sm-10">
+																<input class="form-control" type="text"
+																	placeholder="Subdistrict" th:field="*{name}"
+																	id="name" name="name">
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+
+										<div class="card">
+											<div class="card-body">
+
+												<div class="theme-form theme-form-2 mega-form">
+													<div class="row">
+														<div class="col-12">
+															<div class="row">
+																<button type="submit"
+																	class="btn btn-success float-right">
+																	<i class="fas fa-plus-square">Add</i>
+																</button>
+																<hr>
+																<a th:href="@{/product/list}"
+																	class="btn btn-primary float-left"><i
+																		class="fas fa-angle-left">Back</i></a>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</form>
+				<!-- New Product Add End -->
+
+				<!-- footer Start -->
+				<div th:replace="~{'be/footer' :: footer}"></div>
+				<!-- footer En -->
+			</div>
+			<!-- Container-fluid End -->
+		</div>
+		<!-- Page Body End -->
+	</div>
+	<!-- page-wrapper End -->
+
+	<!-- Modal Start -->
+	<div th:replace="~{'be/modal' :: modal}"></div>
+	<!-- Modal End -->
+
+	<div th:replace="~{'be/script' :: script}"></div>
+
+	<script th:inline="javascript">
+		function fetchCities() {
+			var provinceId = document.getElementById('province').value;
+
+			fetch('/subdistrict/api/city?provinceId=' + provinceId)
+				.then(response => response.json())
+				.then(data => {
+					console.log('Received data:', data);
+					// Pastikan respons adalah array yang dapat diiterasi
+
+					document.getElementById('city').innerHTML = '<option value="">Choose City</option>';
+					data.forEach(city => {
+						var option = document.createElement('option');
+						option.value = city.id;
+						option.text = city.name;
+						document.getElementById('city').add(option);
+					});
+				})
+				.catch(error => {
+					console.error('Error fetching cities:', error);
+				});
+
+		}
+
+
+		function fetchKecamatan() {
+			// Implementasi serupa untuk mendapatkan daftar kecamatan berdasarkan kotaId
+		}
+
+		function fetchDesa() {
+			// Implementasi serupa untuk mendapatkan daftar desa berdasarkan kecamatanId
+		}
+	</script>
+
+</body>
+
+</html>

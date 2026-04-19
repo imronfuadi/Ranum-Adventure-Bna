@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="id" xmlns:th="http://www.thymeleaf.org">
+
+<div th:replace="~{'be-admin/head' :: head}"></div>
+
+<body>
+	<!-- tap on top start-->
+	<div class="tap-top">
+		<span class="lnr lnr-chevron-up"></span>
+	</div>
+	<!-- tap on tap end-->
+
+	<!-- page-wrapper Start-->
+	<div class="page-wrapper compact-wrapper dark-sidebar" id="pageWrapper">
+		<!-- Page Header Start-->
+		<div th:replace="~{'be-admin/header' :: header}"></div>
+		<!-- Page Header Ends-->
+
+		<!-- Page Body Start-->
+		<div class="page-body-wrapper">
+			<!-- Page Sidebar Start-->
+			<div th:replace="~{'be-admin/sidebar' :: sidebar}"></div>
+			<!-- Page Sidebar Ends-->
+
+			<!-- Container-fluid starts-->
+			<div class="page-body">
+				<div class="title-header d-flex justify-content-between align-items-center">
+					<h5>Laporan</h5>
+
+					<!-- Container tombol pencarian, reset, dan download -->
+					<div class="d-flex align-items-center">
+
+						<!-- Form pencarian -->
+						<form th:action="@{/laporan/list}" method="get" class="d-flex me-2" role="search">
+							<input type="text" name="keyword" class="form-control me-2" placeholder="Cari nama / ID"
+								th:value="${keyword}" />
+							<button class="btn btn-primary me-2" type="submit">Cari</button>
+						</form>
+
+						<!-- Tombol Reset -->
+						<a class="btn btn-outline-secondary me-2" th:href="@{/laporan/list(page=0)}">Reset</a>
+
+						<!-- Tombol Download PDF -->
+						<form th:action="@{/laporan/download}" method="get">
+							<button type="submit" class="btn btn-success">Download PDF</button>
+						</form>
+
+					</div>
+				</div>
+
+
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="card">
+								<div class="card-body">
+									<div>
+										<div class="table-responsive table-desi table-product">
+											<table class="table table-1d all-package">
+												<thead>
+													<tr>
+														<th>No</th>
+														<th>ID Penyewaan</th>
+														<th>Nama Pelanggan</th>
+														<th>Tanggal Sewa</th>
+														<th>Tanggal Kembali (Rencana)</th>
+														<th>Tanggal Pengembalian</th>
+														<th>Lama Sewa (hari)</th>
+														<th>Metode Pembayaran</th>
+														<th>Status Pembayaran</th>
+														<th>Status Penyewaan</th>
+														<th>Status Pengembalian</th>
+														<th>Denda</th>
+														<th>Total Harga</th>
+														<!--<th>Option</th>-->
+													</tr>
+												</thead>
+
+												<tbody>
+													<tr th:each="p, stat :${laporanList}">
+														<td th:text="${stat.count}"></td>
+														<td th:text="${p.penyewaanId}"></td>
+														<td th:text="${p.pelanggan != null ? p.pelanggan.nama : '-'}">
+														</td>
+														<td
+															th:text="${#temporals.format(p.tanggalPinjam, 'dd-MM-yyyy')}">
+														</td>
+														<td
+															th:text="${#temporals.format(p.tanggalKembali, 'dd-MM-yyyy')}">
+														</td>
+														<td
+															th:text="${p.pengembalian != null ? #temporals.format(p.pengembalian.tanggalPengembalian, 'dd-MM-yyyy') : '-'}">
+														</td>
+														<td th:text="${p.lamaSewa} + ' hari'"></td>
+														<td th:text="${p.metodeBayar}"></td>
+														<td th:text="${p.statusPembayaran}"></td>
+														<td th:text="${p.statusPenyewaan}"></td>
+														<td
+															th:text="${p.pengembalian != null ? p.pengembalian.statusPengembalian : '-'}">
+														</td>
+														<td
+															th:text="${p.pengembalian != null && p.pengembalian.denda != null ? 'Rp. ' + #numbers.formatDecimal(p.pengembalian.denda, 0, 'POINT', 0, 'COMMA') : 'Rp. 0'}">
+														</td>
+														<td
+															th:text="${'Rp.' + #numbers.formatDecimal(p.totalHarga, 0, 'POINT', 0, 'COMMA')}">
+														</td>
+														<!--<td>
+															<ul>-->
+																<!--<li>
+																	<a
+																		th:href="@{/penyewaan/detail/{id}(id=${p.penyewaanId})}">
+																		<span class="lnr lnr-eye"></span>
+																	</a>
+																</li>-->
+
+																<!--<li>
+																	<a th:href="@{/penyewaan/batal/{id}(id=${p.penyewaanId})}"
+																		data-bs-toggle="modal"
+																		data-bs-target="#modalBatal"
+																		onclick="setBatalUrl(event, this)">
+																		<span class="lnr lnr-cross"></span>
+																	</a>
+																</li>-->
+
+																<!--<li>
+																	<a th:href="@{/penyewaan/nota/{id}(id=${p.penyewaanId})}"
+																		target="_blank"><span
+																			class="lnr lnr-printer"></span>
+																	</a>
+																</li>-->
+
+																<!--<li>
+																	<a th:href="@{/penyewaan/delete/{id}(id=${p.penyewaanId})}"
+																		data-bs-toggle="modal"
+																		data-bs-target="#exampleModal"
+																		onclick="setDeleteUrl(this)">
+																		<i class="far fa-trash-alt theme-color"></i>
+																	</a>
+																</li>-->
+																<!--<li>
+																	<form
+																		th:action="@{/pengembalian/proses/{id}(id=${p.penyewaanId})}"
+																		method="post">
+																		<button
+																			class="btn btn-success">Kembalikan</button>
+																	</form>
+																</li>-->
+															<!--</ul>
+														</td>-->
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+
+								<div class="pagination-box" th:if="${totalPages > 0}">
+									<nav aria-label="...">
+										<ul class="pagination pagination-primary">
+											<li class="page-item" th:classappend="${currentPage == 0} ? 'disabled'">
+												<a class="page-link" th:href="@{/laporan/list(page=${currentPage - 1})}"
+													tabindex="-1">Previous</a>
+											</li>
+
+											<th:block th:if="${currentPage > 2}">
+												<li class="page-item">
+													<a class="page-link" th:href="@{'/laporan/list?page=0'}">1</a>
+												</li>
+												<li class="page-item disabled">
+													<span class="page-link">...</span>
+												</li>
+											</th:block>
+
+											<th:block
+												th:each="pageNumber : ${#numbers.sequence(currentPage - 1, currentPage + 1)}"
+												th:if="${pageNumber >= 0 and pageNumber < totalPages}">
+												<li class="page-item"
+													th:classappend="${currentPage == pageNumber} ? 'active'">
+													<a class="page-link"
+														th:href="@{'/laporan/list?page=' + ${pageNumber}}">[[${pageNumber
+														+
+														1}]]</a>
+												</li>
+											</th:block>
+
+											<th:block th:if="${currentPage < totalPages - 3}">
+												<li class="page-item disabled">
+													<span class="page-link">...</span>
+												</li>
+												<li class="page-item">
+													<a class="page-link"
+														th:href="@{/laporan/list(page= ${totalPages - 1})}">[[${totalPages}]]</a>
+												</li>
+											</th:block>
+
+											<li class="page-item"
+												th:classappend="${currentPage == (totalPages - 1)} ? 'disabled'">
+												<a class="page-link"
+													th:href="@{/laporan/list(page=${currentPage + 1})}">Next</a>
+											</li>
+										</ul>
+									</nav>
+								</div>
+
+								<!--<div class="pagination-box">
+									<nav class="ms-auto me-auto " aria-label="...">
+										<ul class="pagination pagination-primary">
+											<li class="page-item disabled">
+												<a class="page-link" href="javascript:void(0)"
+													tabindex="-1">Previous</a>
+											</li>
+
+											<li class="page-item active">
+												<a class="page-link" href="javascript:void(0)">1</a>
+											</li>
+											<li class="page-item">
+												<a class="page-link" href="javascript:void(0)">2 <span
+														class="sr-only">(current)</span>
+												</a>
+											</li>
+
+											<li class="page-item">
+												<a class="page-link" href="javascript:void(0)">3</a>
+											</li>
+
+											<li class="page-item">
+												<a class="page-link" href="javascript:void(0)">Next</a>
+											</li>
+										</ul>
+									</nav>
+								</div>-->
+
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- Container-fluid Ends-->
+
+				<div th:replace="~{'be-admin/footer' :: footer}"></div>
+			</div>
+		</div>
+	</div>
+	<!-- page-wrapper End-->
+
+	<!-- Modal Start -->
+	<div th:replace="~{'be-admin/modal' :: modal}"></div>
+	<!-- Modal End -->
+
+	<div th:replace="~{'be-admin/script' :: script}"></div>
+	<!-- Modal -->
+	<div class="modal fade" id="modalBatal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Konfirmasi Pembatalan</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					Apakah Anda yakin ingin melakukan pembatalan?
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
+					<a id="batalButton" class="btn btn-danger">Batalkan</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script>
+		function setBatalUrl(event, link) {
+			event.preventDefault(); // Cegah klik langsung
+			var getUrl = link.getAttribute('href');
+			document.getElementById('batalButton').setAttribute('href', getUrl);
+		}
+	</script>
+</body>
+
+</html>

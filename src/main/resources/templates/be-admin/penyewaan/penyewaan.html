@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="id" xmlns:th="http://www.thymeleaf.org">
+
+<div th:replace="~{'be-admin/head' :: head}"></div>
+
+<body>
+	<!-- tap on top start-->
+	<div class="tap-top">
+		<span class="lnr lnr-chevron-up"></span>
+	</div>
+	<!-- tap on tap end-->
+
+	<!-- page-wrapper Start-->
+	<div class="page-wrapper compact-wrapper dark-sidebar" id="pageWrapper">
+		<!-- Page Header Start-->
+		<div th:replace="~{'be-admin/header' :: header}"></div>
+		<!-- Page Header Ends-->
+
+		<!-- Page Body Start-->
+		<div class="page-body-wrapper">
+			<!-- Page Sidebar Start-->
+			<div th:replace="~{'be-admin/sidebar' :: sidebar}"></div>
+			<!-- Page Sidebar Ends-->
+
+			<!-- Container-fluid starts-->
+			<div class="page-body">
+				<!--<div th:if="${success}">
+					<div class="alert alert-success" th:text="${dibatalkan}"></div>
+				</div>-->
+				<div id="alert-success" th:if="${param.success != null and param.success.contains('dibatalkan')}"
+					class="alert alert-success">
+					Berhasil dibatalkan.
+				</div>
+				<div class="title-header">
+					<h5>Penyewaan</h5>
+				</div>
+
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="card">
+								<div class="card-body">
+									<div>
+										<div class="table-responsive table-desi table-product">
+											<table class="table table-1d all-package">
+												<thead>
+													<tr>
+														<th>No</th>
+														<th>Id Sewa</th>
+														<th>Nama</th>
+														<th>Tanggal Sewa</th>
+														<th>Lama Sewa(per Malam)</th>
+														<th>Total Harga</th>
+														<th>Status Pembayaran</th>
+														<th>Status Penyewaan</th>
+														<th>Bukti Transfer</th>
+														<th>Option</th>
+													</tr>
+												</thead>
+
+												<tbody>
+													<tr th:each="p, stat :${penyewaanList}">
+														<td th:text="${stat.count}"></td>
+														<td th:text="${p.penyewaanId}"></td>
+														<td th:text="${p.pelanggan.nama}">
+														</td>
+														<!--<td th:text="${p.tanggalPinjam}"></td>-->
+														<td
+															th:text="${#temporals.format(p.tanggalPinjam, 'dd-MM-yyyy')}">
+														</td>
+														<td th:text="${p.lamaSewa}"></td>
+														<td
+															th:text="${'Rp.' + #numbers.formatDecimal(p.totalHarga, 0, 'POINT', 0, 'COMMA')}">
+														</td>
+														<td th:text="${p.statusPembayaran}"></td>
+														<td th:text="${p.statusPenyewaan}"></td>
+														<td>
+															<span th:if="${p.buktiTransfer == null}"
+																class="text-muted">-</span>
+															<a th:if="${p.buktiTransfer != null}"
+																th:href="${p.buktiTransferPath}" target="_blank">
+																<img th:src="${p.buktiTransferPath}" class="img-fluid"
+																	alt="Bukti Transfer"
+																	style="width:50px; height:70px;">
+															</a>
+														</td>
+
+														<td>
+															<ul>
+																<li>
+																	<a
+																		th:href="@{/penyewaan/detail/{id}(id=${p.penyewaanId})}">
+																		<span class="lnr lnr-eye"></span>
+																	</a>
+																</li>
+
+																<li>
+																	<a th:href="@{/penyewaan/batal/{id}(id=${p.penyewaanId})}"
+																		data-bs-toggle="modal"
+																		data-bs-target="#modalBatal"
+																		onclick="setBatalUrl(event, this)">
+																		<span class="lnr lnr-cross"></span>
+																	</a>
+																</li>
+
+																<li>
+																	<a th:href="@{/penyewaan/nota/{id}(id=${p.penyewaanId})}"
+																		target="_blank"><span
+																			class="lnr lnr-printer"></span>
+																	</a>
+																</li>
+
+																<li>
+																	<a th:href="@{/penyewaan/delete/{id}(id=${p.penyewaanId})}"
+																		data-bs-toggle="modal"
+																		data-bs-target="#exampleModal"
+																		onclick="setDeleteUrl(this)">
+																		<i class="far fa-trash-alt theme-color"></i>
+																	</a>
+																</li>
+																<!--<li>
+																	<form
+																		th:action="@{/pengembalian/proses/{id}(id=${p.penyewaanId})}"
+																		method="post">
+																		<button
+																			class="btn btn-success">Kembalikan</button>
+																	</form>
+																</li>-->
+															</ul>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+
+								<div class="pagination-box" th:if="${totalPages > 0}">
+									<nav aria-label="...">
+										<ul class="pagination pagination-primary">
+											<li class="page-item" th:classappend="${currentPage == 0} ? 'disabled'">
+												<a class="page-link"
+													th:href="@{/penyewaan/list(page=${currentPage - 1})}"
+													tabindex="-1">Previous</a>
+											</li>
+
+											<th:block th:if="${currentPage > 2}">
+												<li class="page-item">
+													<a class="page-link" th:href="@{'/penyewaan/list?page=0'}">1</a>
+												</li>
+												<li class="page-item disabled">
+													<span class="page-link">...</span>
+												</li>
+											</th:block>
+
+											<th:block
+												th:each="pageNumber : ${#numbers.sequence(currentPage - 1, currentPage + 1)}"
+												th:if="${pageNumber >= 0 and pageNumber < totalPages}">
+												<li class="page-item"
+													th:classappend="${currentPage == pageNumber} ? 'active'">
+													<a class="page-link"
+														th:href="@{'/penyewaan/list?page=' + ${pageNumber}}">[[${pageNumber
+														+
+														1}]]</a>
+												</li>
+											</th:block>
+
+											<th:block th:if="${currentPage < totalPages - 3}">
+												<li class="page-item disabled">
+													<span class="page-link">...</span>
+												</li>
+												<li class="page-item">
+													<a class="page-link"
+														th:href="@{/penyewaan/list(page= ${totalPages - 1})}">[[${totalPages}]]</a>
+												</li>
+											</th:block>
+
+											<li class="page-item"
+												th:classappend="${currentPage == (totalPages - 1)} ? 'disabled'">
+												<a class="page-link"
+													th:href="@{/penyewaan/list(page=${currentPage + 1})}">Next</a>
+											</li>
+										</ul>
+									</nav>
+								</div>
+
+								<!--<div class="pagination-box">
+									<nav class="ms-auto me-auto " aria-label="...">
+										<ul class="pagination pagination-primary">
+											<li class="page-item disabled">
+												<a class="page-link" href="javascript:void(0)"
+													tabindex="-1">Previous</a>
+											</li>
+
+											<li class="page-item active">
+												<a class="page-link" href="javascript:void(0)">1</a>
+											</li>
+											<li class="page-item">
+												<a class="page-link" href="javascript:void(0)">2 <span
+														class="sr-only">(current)</span>
+												</a>
+											</li>
+
+											<li class="page-item">
+												<a class="page-link" href="javascript:void(0)">3</a>
+											</li>
+
+											<li class="page-item">
+												<a class="page-link" href="javascript:void(0)">Next</a>
+											</li>
+										</ul>
+									</nav>
+								</div>-->
+
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- Container-fluid Ends-->
+
+				<div th:replace="~{'be-admin/footer' :: footer}"></div>
+			</div>
+		</div>
+	</div>
+	<!-- page-wrapper End-->
+
+	<!-- Modal Start -->
+	<div th:replace="~{'be-admin/modal' :: modal}"></div>
+	<!-- Modal End -->
+
+	<div th:replace="~{'be-admin/script' :: script}"></div>
+	<!-- Modal -->
+	<div class="modal fade" id="modalBatal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Konfirmasi Pembatalan</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					Apakah Anda yakin ingin melakukan pembatalan?
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
+					<a id="batalButton" class="btn btn-danger">Batalkan</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script>
+		function setBatalUrl(event, link) {
+			event.preventDefault(); // Cegah klik langsung
+			var getUrl = link.getAttribute('href');
+			document.getElementById('batalButton').setAttribute('href', getUrl);
+		}
+		
+		// Hilangkan alert-success setelah 3 detik
+		const alertSuccess = document.getElementById('alert-success');
+		if (alertSuccess) {
+			setTimeout(() => {
+				alertSuccess.style.transition = "opacity 0.5s";
+				alertSuccess.style.opacity = 0;
+				setTimeout(() => alertSuccess.remove(), 500); // remove node after fade-out
+			}, 3000); // 3 detik
+		}
+	</script>
+	
+	
+</body>
+
+</html>

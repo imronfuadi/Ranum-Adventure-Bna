@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="id" xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="sidebar">
+	<div class="sidebar-wrapper">
+		<div>
+			<div class="logo-wrapper logo-wrapper-center">
+				<a href="index.html" data-bs-original-title="" title=""> <img class="img-fluid for-dark"
+						style="height: 45px; width: 160px;" src="../../assets/images/logo/logo-ranum-adv.png" alt="">
+				</a>
+				<div class="back-btn">
+					<i class="fa fa-angle-left"></i>
+				</div>
+				<div class="toggle-sidebar">
+					<i class="status_toggle middle sidebar-toggle" data-feather="grid"></i>
+				</div>
+			</div>
+			<div class="logo-icon-wrapper">
+				<a href="index.html"> <img class="img-fluid main-logo" src="../../assets/images/logo/logo.png"
+						alt="logo">
+				</a>
+			</div>
+			<nav class="sidebar-main">
+				<div class="left-arrow" id="left-arrow">
+					<i data-feather="arrow-left"></i>
+				</div>
+
+				<div id="sidebar-menu">
+					<ul class="sidebar-links" id="simple-bar">
+						<li class="back-btn"></li>
+						<li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav"
+								th:href="@{/admin/dashboard}">
+								<i data-feather="home"></i> <span>Dashboard</span>
+							</a></li>
+						<hr style="color: white;">
+						<!--<li class="sidebar-list"><a class="sidebar-link sidebar-title" href="javascript:void(0)">
+								<i data-feather="users"></i> <span>Pelaku Usaha</span>
+							</a>
+							<ul class="sidebar-submenu">
+								<li><a href="all-users.html">Data Register</a></li>
+							</ul>
+						</li>
+
+						<li class="sidebar-list"><a class="sidebar-link sidebar-title" href="javascript:void(0)">
+								<i data-feather="archive"></i> <span>UMKM Validasi</span>
+							</a>
+							<ul class="sidebar-submenu">
+								<li><a href="order-list.html">UMKM</a></li>
+								<li><a href="order-detail.html">UMKM Produk</a></li>
+								<li><a href="order-tracking.html">Jenis UMKM</a></li>
+								<li><a href="order-list.html">Jenis Produk</a></li>
+								<li><a href="order-detail.html">UMKM Verifikasi</a></li>
+								<li><a href="order-tracking.html">UMKM Unggulan</a></li>
+								<li><a href="order-tracking.html">UMKM Binaan</a></li>
+							</ul>
+						</li>
+
+						<li class="sidebar-list"><a class="linear-icon-link sidebar-link sidebar-title"
+								href="javascript:void(0)"> <i data-feather="info"></i> <span>Informasi</span>
+							</a>
+							<ul class="sidebar-submenu">
+								<li><a href="vendor-list.html">Berita</a></li>
+
+								<li><a href="create-vendor.html">Slider</a></li>
+							</ul>
+						</li>
+
+						<li class="sidebar-list"><a class="linear-icon-link sidebar-link sidebar-title"
+								href="javascript:void(0)"> <i data-feather="book-open"></i> <span>Laporan</span>
+							</a>
+							<ul class="sidebar-submenu">
+								<li><a href="vendor-list.html">UMKM Bidang Usaha</a></li>
+
+								<li><a href="create-vendor.html">UMKM Kecamatan/Kelurahan</a></li>
+
+								<li><a href="create-vendor.html">UMKM Unggulan</a></li>
+
+								<li><a href="create-vendor.html">UMKM Binaan</a></li>
+							</ul>
+						</li>-->
+
+						<!--<li class="sidebar-list"><a class="linear-icon-link sidebar-link sidebar-title"
+								href="javascript:void(0)"> <i data-feather="users"></i> <span>Master</span>
+							</a>
+							<ul class="sidebar-submenu">
+								<li><a href="translation.html">Ref Provinsi</a></li>
+
+								<li><a href="currency-rates.html">Ref Kota/Kabupaten</a></li>
+
+								<li><a href="taxes.html">Ref Kecamatan</a></li>
+
+								<li><a href="taxes.html">Ref Kelurahan/Desa</a></li>
+							</ul>
+						</li>-->
+
+						<!--<li class="sidebar-list"><a class="linear-icon-link sidebar-link sidebar-title"
+								href="javascript:void(0)"> <i data-feather="box"></i> <span>Product</span>
+							</a>
+							<ul class="sidebar-submenu">
+								<li><a th:href="@{/product/list}">Prodcts</a></li>
+
+								<li><a th:href="@{/product/new}">Add New Products</a></li>
+							</ul>
+						</li>-->
+
+						<li class="sidebar-list"><a class="linear-icon-link sidebar-link sidebar-title"
+								href="javascript:void(0)"> <i data-feather="user"></i> <span>Data Penyewa</span>
+							</a>
+							<ul class="sidebar-submenu">
+								<li><a th:href="@{/pelanggan/list}">Penyewa</a></li>
+
+								<li><a th:href="@{/pelanggan/new}">Tambah Penyewa</a></li>
+							</ul>
+						</li>
+
+						<li class="sidebar-list"><a class="linear-icon-link sidebar-link sidebar-title"
+								href="javascript:void(0)"> <i data-feather="box"></i> <span>Data Barang</span>
+							</a>
+							<ul class="sidebar-submenu">
+								<li><a th:href="@{/barang/list}">Barang</a></li>
+
+								<li><a th:href="@{/barang/new}">Tambah Barang</a></li>
+							</ul>
+						</li>
+
+						<li class="sidebar-list"><a class="linear-icon-link sidebar-link sidebar-title"
+								href="javascript:void(0)"> <i data-feather="sunrise"></i> <span>Penyewaan</span>
+							</a>
+							<ul class="sidebar-submenu">
+								<li><a th:href="@{/penyewaan/list}">Penyewaan</a></li>
+
+								<li><a th:href="@{/penyewaan/new}">Tambah Penyewaan</a></li>
+
+								<li><a th:href="@{/penyewaan/keranjang}">Keranjang</a></li>
+							</ul>
+						</li>
+
+						<li class="sidebar-list"><a class="linear-icon-link sidebar-link sidebar-title"
+								href="javascript:void(0)"> <i data-feather="sunset"></i> <span>Pengembalian</span>
+							</a>
+							<ul class="sidebar-submenu">
+								<li><a th:href="@{/pengembalian/list}">Pengembalian</a></li>
+
+								<li><a th:href="@{/pengembalian/riwayat}">Riwayat Pengembalian</a></li>
+
+								<!--<li><a th:href="@{/peluang/new}">Add Peluang</a></li>-->
+							</ul>
+						</li>
+
+						<li class="sidebar-list"><a class="linear-icon-link sidebar-link sidebar-title"
+								href="javascript:void(0)"> <i data-feather="bar-chart-2"></i> <span>Laporan</span>
+							</a>
+							<ul class="sidebar-submenu">
+								<li><a th:href="@{/laporan/list}">Laporan</a></li>
+
+								<!--<li><a th:href="@{/peluang/new}">Laporan 2</a></li>-->
+							</ul>
+						</li>
+
+						<li class="sidebar-list"><a class="linear-icon-link sidebar-link sidebar-title"
+								href="javascript:void(0)"> <i data-feather="box"></i> <span>Kategori</span>
+							</a>
+							<ul class="sidebar-submenu">
+								<li><a th:href="@{/kategori/list}">Kategori</a></li>
+
+								<li><a th:href="@{/kategori/new}">Tambah Kategori</a></li>
+							</ul>
+						</li>
+
+						<!--<li class="sidebar-list"><a class="linear-icon-link sidebar-link sidebar-title"
+								href="javascript:void(0)"> <i data-feather="message-circle"></i> <span>Testimoni</span>
+							</a>
+							<ul class="sidebar-submenu">
+								<li><a th:href="@{/peluang/list}">Testimoni</a></li>
+
+								<li><a th:href="@{/peluang/new}">Tambah Testimoni</a></li>
+							</ul>
+						</li>-->
+
+						<!--<li class="sidebar-list"><a class="linear-icon-link sidebar-link sidebar-title"
+								href="javascript:void(0)"> <i data-feather="book"></i> <span>Berita</span>
+							</a>
+							<ul class="sidebar-submenu">
+								<li><a th:href="@{/berita/list}">Berita</a></li>
+
+								<li><a th:href="@{/berita/new}">Tambah Berita</a></li>
+							</ul>
+						</li>-->
+
+						<!--<li class="sidebar-list"><a class="linear-icon-link sidebar-link sidebar-title"
+								href="javascript:void(0)"> <i data-feather="book"></i> <span>Slider</span>
+							</a>
+							<ul class="sidebar-submenu">
+								<li><a th:href="@{/slider/list}">Slider</a></li>
+
+								<li><a th:href="@{/slider/new}">Tambah Slider</a></li>
+							</ul>
+						</li>-->
+
+						<!--<li class="sidebar-list"><a class="linear-icon-link sidebar-link sidebar-title"
+								href="javascript:void(0)"> <i data-feather="bar-chart-2"></i> <span>Chart</span>
+							</a>
+							<ul class="sidebar-submenu">
+								<li><a th:href="@{/chart/chartList}">Bar Chart</a></li>
+								<li><a th:href="@{/chart/pieChart}">Pie Chart</a></li>
+							</ul>
+						</li>-->
+
+						<!--<li class="sidebar-list"><a class="linear-icon-link sidebar-link sidebar-title"
+								href="javascript:void(0)"> <i data-feather="box"></i> <span>Province</span>
+							</a>
+							<ul class="sidebar-submenu">
+								<li><a th:href="@{/province/list}">Province</a></li>
+
+								<li><a th:href="@{/province/new}">Add New Province</a></li>
+							</ul>
+						</li>
+
+						<li class="sidebar-list"><a class="linear-icon-link sidebar-link sidebar-title"
+								href="javascript:void(0)"> <i data-feather="box"></i> <span>City</span>
+							</a>
+							<ul class="sidebar-submenu">
+								<li><a th:href="@{/city/list}">City</a></li>
+
+								<li><a th:href="@{/city/new}">Add New City</a></li>
+							</ul>
+						</li>
+
+						<li class="sidebar-list"><a class="linear-icon-link sidebar-link sidebar-title"
+								href="javascript:void(0)"> <i data-feather="box"></i> <span>Subdistrict</span>
+							</a>
+							<ul class="sidebar-submenu">
+								<li><a th:href="@{/subdistrict/list}">Subdistrict</a></li>
+
+								<li><a th:href="@{/subdistrict/new}">Add New Subdistrict</a></li>
+							</ul>
+						</li>
+
+						<li class="sidebar-list"><a class="linear-icon-link sidebar-link sidebar-title"
+								href="javascript:void(0)"> <i data-feather="box"></i> <span>Village</span>
+							</a>
+							<ul class="sidebar-submenu">
+								<li><a th:href="@{/village/list}">Village</a></li>
+
+								<li><a th:href="@{/village/new}">Add New Village</a></li>
+							</ul>
+						</li>-->
+
+						<!--<li class="sidebar-list"><a class="linear-icon-link sidebar-link sidebar-title"
+								href="javascript:void(0)"> <i data-feather="sliders"></i> <span>Slider</span>
+							</a>
+							<ul class="sidebar-submenu">
+								<li><a th:href="@{/slider/list}">Slider</a></li>
+
+								<li><a th:href="@{/slider/new}">Add New Slider</a></li>
+							</ul>
+						</li>
+						
+						<li class="sidebar-list"><a class="linear-icon-link sidebar-link sidebar-title"
+								href="javascript:void(0)"> <i data-feather="file-text"></i> <span>Berita</span>
+							</a>
+							<ul class="sidebar-submenu">
+								<li><a th:href="@{/berita/list}">Berita</a></li>
+
+								<li><a th:href="@{/berita/new}">Tambah Berita Baru</a></li>
+							</ul>
+						</li>
+						
+						<li class="sidebar-list"><a class="linear-icon-link sidebar-link sidebar-title"
+								href="javascript:void(0)"> <i data-feather="file-text"></i> <span>Jenis Usaha</span>
+							</a>
+							<ul class="sidebar-submenu">
+								<li><a th:href="@{/jenisusaha/list}">Jenis Usaha</a></li>
+
+								<li><a th:href="@{/jenisusaha/new}">Tambah Jenis Usaha</a></li>
+							</ul>
+						</li>
+						
+						<li class="sidebar-list"><a class="linear-icon-link sidebar-link sidebar-title"
+								href="javascript:void(0)"> <i data-feather="file-text"></i> <span>Management</span>
+							</a>
+							<ul class="sidebar-submenu">
+								<li><a th:href="@{/management/list}">Management</a></li>
+
+								<li><a th:href="@{/management/new}">Tambah Management</a></li>
+							</ul>
+						</li>
+						
+						<li class="sidebar-list"><a class="linear-icon-link sidebar-link sidebar-title"
+								href="javascript:void(0)"> <i data-feather="file-text"></i> <span>Testimonials</span>
+							</a>
+							<ul class="sidebar-submenu">
+								<li><a th:href="@{/testimonials/list}">Testimonials</a></li>
+
+								<li><a th:href="@{/testimonials/new}">Tambah Testimonial</a></li>
+							</ul>
+						</li>
+						
+						<li class="sidebar-list"><a class="linear-icon-link sidebar-link sidebar-title"
+								href="javascript:void(0)"> <i data-feather="phone"></i> <span>Kontak</span>
+							</a>
+							<ul class="sidebar-submenu">
+								<li><a th:href="@{/kontak/list}">Kontak</a></li>
+							</ul>
+						</li>
+
+						<li class="sidebar-list"><a class="linear-icon-link sidebar-link sidebar-title"
+								href="javascript:void(0)"> <i data-feather="settings"></i>
+								<span>Setting</span>
+							</a>
+							<ul class="sidebar-submenu">
+								<li><a href="menu-lists.html">User</a></li>
+
+								<li><a href="create-menu.html">User Role</a></li>
+
+								<li><a href="create-menu.html">Web Profile</a></li>
+							</ul>
+						</li>-->
+
+						<li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav"
+								th:href="@{/custom-logout}" data-bs-toggle="modal" data-bs-target="#modalKeluar"
+								onclick="setKeluarUrl(this)">
+								<i data-feather="log-out"></i> <span>Logout</span>
+							</a></li>
+
+						<!--<li class="sidebar-list"><a class="linear-icon-link sidebar-link sidebar-title"
+								href="javascript:void(0)"> <i data-feather="tag"></i> <span>Coupons</span>
+							</a>
+							<ul class="sidebar-submenu">
+								<li><a href="coupon-list.html">Coupon List</a></li>
+
+								<li><a href="create-coupon.html">Create Coupon</a></li>
+							</ul>
+						</li>
+
+						<li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav"
+								href="product-review.html"> <i data-feather="star"></i> <span>Product
+									Review</span>
+							</a></li>
+
+						<li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="invoice.html">
+								<i data-feather="archive"></i> <span>Invoice</span>
+							</a></li>
+
+						<li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav"
+								href="support-ticket.html"> <i data-feather="phone"></i> <span>Support
+									Ticket</span>
+							</a></li>
+
+						<li class="sidebar-list"><a class="linear-icon-link sidebar-link sidebar-title"
+								href="javascript:void(0)"> <i data-feather="settings"></i> <span>Settings</span>
+							</a>
+							<ul class="sidebar-submenu">
+								<li><a href="profile-setting.html">Profile Setting</a></li>
+							</ul>
+						</li>
+
+						<li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="reports.html">
+								<i data-feather="file-text"></i> <span>Reports</span>
+							</a></li>
+
+						<li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="list-page.html">
+								<i data-feather="list"></i> <span>List Page</span>
+							</a></li>
+
+						<li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="login.html">
+								<i data-feather="log-in"></i> <span>Log In</span>
+							</a></li>
+
+						<li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav"
+								href="forgot-password.html"> <i data-feather="key"></i> <span>Forgot
+									Password</span>
+							</a></li>
+
+						<li class="sidebar-list"><a class="sidebar-link sidebar-title link-nav" href="sign-up.html">
+								<i data-feather="plus-circle"></i> <span>Register</span>
+							</a></li>-->
+					</ul>
+				</div>
+				<div class="right-arrow" id="right-arrow">
+					<i data-feather="arrow-right"></i>
+				</div>
+			</nav>
+		</div>
+	</div>
+</div>
+
+</html>

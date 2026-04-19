@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="id" xmlns:th="http://www.thymeleaf.org">
+
+<div th:replace="~{'be-admin/head' :: head}"></div>
+
+<body>
+	<!-- tap on top start -->
+	<div class="tap-top">
+		<span class="lnr lnr-chevron-up"></span>
+	</div>
+	<!-- tap on tap end -->
+
+	<!-- page-wrapper start -->
+	<div class="page-wrapper compact-wrapper dark-sidebar" id="pageWrapper">
+		<!-- Page Header start -->
+		<div th:replace="~{'be-admin/header' :: header}"></div>
+		<!-- Page Header end -->
+
+		<!-- Page Body start -->
+		<div class="page-body-wrapper">
+			<!-- Page Sidebar Start-->
+			<div th:replace="~{'be-admin/sidebar' :: sidebar}"></div>
+			<!-- Page Sidebar Ends-->
+
+			<div class="page-body">
+				<div class="title-header">
+					<h5>Edit UMKM</h5>
+				</div>
+
+				<!-- New Product Add Start -->
+				<form th:action="@{/umkm/update/{id}(id=${getEditUMKM.id})}" th:object="${getEditUMKM}" method="post"
+					enctype="multipart/form-data">
+					<div class="container-fluid">
+						<div class="row">
+							<div class="col-12">
+								<div class="row">
+									<div class="col-sm-12">
+										<div class="card">
+											<div class="card-body">
+												<div class="card-header-2">
+													<h5>UMKM Information</h5>
+												</div>
+
+												<div class="theme-form theme-form-2 mega-form">
+													<div class="row">
+														<div class="mb-4 row align-items-center">
+															<label class="form-label-title col-sm-2 mb-0">NIK</label>
+															<div class="col-sm-10">
+																<input class="form-control" type="text"
+																	placeholder="NIK" th:field="*{nik}" id="nik">
+															</div>
+														</div>
+														<div class="mb-4 row align-items-center">
+															<label class="form-label-title col-sm-2 mb-0">Nama
+																Pemilik</label>
+															<div class="col-sm-10">
+																<input class="form-control" type="text"
+																	placeholder="Nama Pemilik" th:field="*{namaPemilik}"
+																	id="namaPemilik">
+															</div>
+														</div>
+														<div class="mb-4 row align-items-center">
+															<label class="form-label-title col-sm-2 mb-0">Produk</label>
+															<div class="col-sm-10">
+																<input class="form-control" type="text"
+																	placeholder="Product" th:field="*{produk}"
+																	id="produk">
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+
+
+										<div class="card">
+											<div class="card-body">
+												<div class="theme-form theme-form-2 mega-form">
+													<div class="mb-4 row align-items-center">
+														<label class="form-label-title col-sm-2 mb-0">Alamat
+															Pemilik</label>
+														<div class="col-sm-10">
+															<input class="form-control" type="text"
+																placeholder="Alamat Pemilik" th:field="*{alamatPemilik}"
+																id="alamatPemilik">
+														</div>
+													</div>
+
+													<div class="mb-4 row align-items-center">
+														<label
+															class="col-sm-2 col-form-label form-label-title">Provinsi</label>
+														<div class="col-sm-10">
+															<select class="js-example-basic-single w-100" id="provinsi"
+																name="provinsi" onchange="fetchKota(this.value)">
+																<option value="">Pilih Provinsi</option>
+																<option th:each="provinsi : ${listProvinsi}"
+																	th:value="${provinsi.provinsiId}"
+																	th:text="${provinsi.namaProvinsi}">
+																</option>
+															</select>
+														</div>
+													</div>
+
+													<div class="mb-4 row align-items-center">
+														<label
+															class="col-sm-2 col-form-label form-label-title">Kota/Kab</label>
+														<div class="col-sm-10">
+															<select class="js-example-basic-single w-100" id="kota"
+																name="kota" onchange="fetchKecamatan(this.value)">
+																<option value="">Pilih Kota</option>
+																<option th:each="kota : ${listKota}"
+																	th:value="${kota.kotaId}"
+																	th:text="${kota.namaKota}">
+																</option>
+															</select>
+														</div>
+													</div>
+													<div class="mb-4 row align-items-center">
+														<label
+															class="col-sm-2 col-form-label form-label-title">Kecamatan</label>
+														<div class="col-sm-10">
+															<select class="js-example-basic-single w-100" id="kecamatan"
+																name="kecamatan" onchange="fetchDesa(this.value)">
+																<option value="">Pilih Kecamatan</option>
+																<option th:each="kecamatan : ${listKecamatan}"
+																	th:value="${kecamatan.kecamatanId}"
+																	th:text="${kecamatan.namaKecamatan}">
+																</option>
+															</select>
+														</div>
+													</div>
+													<div class="mb-4 row align-items-center">
+														<label
+															class="col-sm-2 col-form-label form-label-title">Desa</label>
+														<div class="col-sm-10">
+															<select class="js-example-basic-single w-100" id="desa"
+																name="desa">
+																<option value="">Pilih Desa</option>
+																<option th:each="desa : ${listDesa}"
+																	th:value="${desa.desaId}"
+																	th:text="${desa.namaDesa}">
+																</option>
+															</select>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+
+										<div class="card">
+											<div class="card-body">
+												<div class="theme-form theme-form-2 mega-form">
+													<div class="mb-4 row align-items-center">
+														<label class="form-label-title col-sm-2 mb-0">Alamat
+															Usaha</label>
+														<div class="col-sm-10">
+															<input class="form-control" type="text"
+																placeholder="Alamat Usaha" th:field="*{alamatUsaha}"
+																id="alamatUsaha">
+														</div>
+													</div>
+
+													<div class="mb-4 row align-items-center">
+														<label
+															class="col-sm-2 col-form-label form-label-title">Provinsi</label>
+														<div class="col-sm-10">
+															<select class="js-example-basic-single w-100" id="provinsi2"
+																name="provinsi2" onchange="fetchKota2(this.value)">
+																<option value="">Pilih Provinsi</option>
+																<option th:each="provinsi : ${listProvinsi}"
+																	th:value="${provinsi.provinsiId}"
+																	th:text="${provinsi.namaProvinsi}">
+																</option>
+															</select>
+														</div>
+													</div>
+
+													<div class="mb-4 row align-items-center">
+														<label
+															class="col-sm-2 col-form-label form-label-title">Kota/Kab</label>
+														<div class="col-sm-10">
+															<select class="js-example-basic-single w-100" id="kota2"
+																name="kota2" onchange="fetchKecamatan2(this.value)">
+																<option value="">Pilih Kota</option>
+																<option th:each="kota : ${listKota}"
+																	th:value="${kota.kotaId}"
+																	th:text="${kota.namaKota}">
+																</option>
+															</select>
+														</div>
+													</div>
+													<div class="mb-4 row align-items-center">
+														<label
+															class="col-sm-2 col-form-label form-label-title">Kecamatan</label>
+														<div class="col-sm-10">
+															<select class="js-example-basic-single w-100"
+																id="kecamatan2" name="kecamatan2"
+																onchange="fetchDesa2(this.value)">
+																<option value="">Pilih Kecamatan</option>
+																<option th:each="kecamatan : ${listKecamatan}"
+																	th:value="${kecamatan.kecamatanId}"
+																	th:text="${kecamatan.namaKecamatan}">
+																</option>
+															</select>
+														</div>
+													</div>
+													<div class="mb-4 row align-items-center">
+														<label
+															class="col-sm-2 col-form-label form-label-title">Desa</label>
+														<div class="col-sm-10">
+															<select class="js-example-basic-single w-100" id="desa2"
+																name="desa2">
+																<option value="">Pilih Desa</option>
+																<option th:each="desa : ${listDesa}"
+																	th:value="${desa.desaId}"
+																	th:text="${desa.namaDesa}">
+																</option>
+															</select>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+
+										<div class="card">
+											<div class="card-body">
+												<div class="theme-form theme-form-2 mega-form">
+													<div class="mb-4 row align-items-center">
+														<label class="form-label-title col-sm-2 mb-0">Omset
+															Pertahun</label>
+														<div class="col-sm-10">
+															<input class="form-control" type="text"
+																placeholder="Omset pertahun" th:field="*{omsetPerTahun}"
+																id="omsetPerTahun">
+														</div>
+													</div>
+													<div class="mb-4 row align-items-center">
+														<label class="form-label-title col-sm-2 mb-0">Kekayaan
+															Bersih</label>
+														<div class="col-sm-10">
+															<input class="form-control" type="text"
+																placeholder="Kekayaan Bersih"
+																th:field="*{kekayaanBersih}" id="kekayaanBersih">
+														</div>
+													</div>
+													<div class="mb-4 row align-items-center">
+														<label class="form-label-title col-sm-2 mb-0">Jenis Kegiatan
+															Usaha</label>
+														<div class="col-sm-10">
+															<input class="form-control" type="text"
+																placeholder="Jenis Kegiatan Usaha"
+																th:field="*{jenisKegiatanUsaha}"
+																id="jenisaKegiatanUsaha">
+														</div>
+													</div>
+													<div class="mb-4 row align-items-center">
+														<label class="form-label-title col-sm-2 mb-0">Ijin
+															Usaha</label>
+														<div class="col-sm-10">
+															<input class="form-control" type="text"
+																placeholder="Ijin Usaha" th:field="*{ijinUsaha}"
+																id="ijinUsaha">
+														</div>
+													</div>
+													<div class="mb-4 row align-items-center">
+														<label
+															class="form-label-title col-sm-2 mb-0">Permasalahan</label>
+														<div class="col-sm-10">
+															<input class="form-control" type="text"
+																placeholder="Permasalahan" th:field="*{permasalahan}"
+																id="permasalahan">
+														</div>
+													</div>
+													<div class="mb-4 row align-items-center">
+														<label class="form-label-title col-sm-2 mb-0">Kluster</label>
+														<div class="col-sm-10">
+															<input class="form-control" type="text"
+																placeholder="Kluster" th:field="*{kluster}"
+																id="kluster">
+														</div>
+													</div>
+													<div class="mb-4 row align-items-center">
+														<label class="form-label-title col-sm-2 mb-0">Keterangan</label>
+														<div class="col-sm-10">
+															<input class="form-control" type="text"
+																placeholder="Keterangan" th:field="*{keterangan}"
+																id="keterangan">
+														</div>
+													</div>
+
+												</div>
+											</div>
+											<!--end theme form-->
+										</div>
+										<!--end card body-->
+
+										<div class="card">
+											<div class="card-body">
+												<div class="card-header-2">
+													<h5>UMKM Images</h5>
+												</div>
+												<div class="theme-form theme-form-2 mega-form">
+													<div class="row">
+														<div class="mb-4 row align-items-center">
+															<label
+																class="col-sm-2 col-form-label form-label-title">Images</label>
+															<div class="col-sm-10">
+																<input class="form-control form-choose" type="file"
+																	name="image" id="formFileMultiple"
+																	accept="image/png, image/jpeg" multiple>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+
+									<div class="card">
+										<div class="card-body">
+
+											<div class="theme-form theme-form-2 mega-form">
+												<div class="row">
+													<div class="col-12">
+														<div class="row">
+															<button type="submit" class="btn btn-success float-right">
+																<i class="fas fa-plus-square">Edit</i>
+															</button>
+															<hr>
+															<a th:href="@{/umkm/list}"
+																class="btn btn-primary float-left"><i
+																	class="fas fa-angle-left">Back</i></a>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+
+								</div>
+							</div>
+						</div>
+					</div>
+			</div>
+			</form>
+			<!-- New Product Add End -->
+
+			<!-- footer Start -->
+			<div th:replace="~{'be-admin/footer' :: footer}"></div>
+			<!-- footer En -->
+		</div>
+		<!-- Container-fluid End -->
+	</div>
+	<!-- Page Body End -->
+	</div>
+	<!-- page-wrapper End -->
+
+	<!-- Modal Start -->
+	<div th:replace="~{'be-admin/modal' :: modal}"></div>
+	<!-- Modal End -->
+
+	<div th:replace="~{'be-admin/script' :: script}"></div>
+	<script th:inline="javascript">
+
+		function fetchKota() {
+			var provinsiId = document.getElementById('provinsi').value;
+			console.log(provinsiId)
+
+			fetch('/umkm/api/kota?provinsiId=' + provinsiId)
+				.then(response => response.json())
+				.then(data => {
+					console.log('Received data:', data);
+					// Pastikan respons adalah array yang dapat diiterasi
+
+					document.getElementById('kota').innerHTML = '<option value="">Pilih Kota</option>';
+					data.forEach(kota => {
+						var option = document.createElement('option');
+						option.value = kota.kotaId;
+						option.text = kota.namaKota;
+						document.getElementById('kota').add(option);
+					});
+				})
+				.catch(error => {
+					console.error('Error fetching cities:', error);
+				});
+
+		}
+
+		function fetchKecamatan() {
+			var kotaId = document.getElementById('kota').value;
+			console.log(kotaId);
+
+			fetch('/umkm/api/kecamatan?kotaId=' + kotaId)
+				.then(response => response.json())
+				.then(data => {
+					console.log('Received data:', data);
+					// Pastikan respons adalah array yang dapat diiterasi
+
+					document.getElementById('kecamatan').innerHTML = '<option value="">Pilih Kecamatan</option>';
+					data.forEach(kecamatan => {
+						var option = document.createElement('option');
+						option.value = kecamatan.kecamatanId;
+						option.text = kecamatan.namaKecamatan;
+						document.getElementById('kecamatan').add(option);
+					});
+				})
+				.catch(error => {
+					console.error('Error fetching kecamatan:', error);
+				});
+
+		}
+
+		function fetchDesa() {
+			var kecamatanId = document.getElementById('kecamatan').value;
+			console.log(kecamatanId);
+
+			fetch('/umkm/api/desa?kecamatanId=' + kecamatanId)
+				.then(response => response.json())
+				.then(data => {
+					console.log('Received data:', data);
+					// Pastikan respons adalah array yang dapat diiterasi
+
+					document.getElementById('desa').innerHTML = '<option value="">Pilih Desa</option>';
+					data.forEach(desa => {
+						var option = document.createElement('option');
+						option.value = desa.desaId;
+						option.text = desa.namaDesa;
+						document.getElementById('desa').add(option);
+					});
+				})
+				.catch(error => {
+					console.error('Error fetching desa:', error);
+				});
+
+		}
+		///////////////////////////////////////////
+
+		function fetchKota2() {
+			var provinsiId = document.getElementById('provinsi2').value;
+			console.log(provinsiId)
+
+			fetch('/umkm/api/kota?provinsiId=' + provinsiId)
+				.then(response => response.json())
+				.then(data => {
+					console.log('Received data:', data);
+					// Pastikan respons adalah array yang dapat diiterasi
+
+					document.getElementById('kota2').innerHTML = '<option value="">Pilih Kota</option>';
+					data.forEach(kota => {
+						var option = document.createElement('option');
+						option.value = kota.kotaId;
+						option.text = kota.namaKota;
+						document.getElementById('kota2').add(option);
+					});
+				})
+				.catch(error => {
+					console.error('Error fetching cities:', error);
+				});
+
+		}
+
+		function fetchKecamatan2() {
+			var kotaId = document.getElementById('kota2').value;
+			console.log(kotaId);
+
+			fetch('/umkm/api/kecamatan?kotaId=' + kotaId)
+				.then(response => response.json())
+				.then(data => {
+					console.log('Received data:', data);
+					// Pastikan respons adalah array yang dapat diiterasi
+
+					document.getElementById('kecamatan2').innerHTML = '<option value="">Pilih Kecamatan</option>';
+					data.forEach(kecamatan => {
+						var option = document.createElement('option');
+						option.value = kecamatan.kecamatanId;
+						option.text = kecamatan.namaKecamatan;
+						document.getElementById('kecamatan2').add(option);
+					});
+				})
+				.catch(error => {
+					console.error('Error fetching kecamatan:', error);
+				});
+
+		}
+
+		function fetchDesa2() {
+			var kecamatanId = document.getElementById('kecamatan2').value;
+			console.log(kecamatanId);
+
+			fetch('/umkm/api/desa?kecamatanId=' + kecamatanId)
+				.then(response => response.json())
+				.then(data => {
+					console.log('Received data:', data);
+					// Pastikan respons adalah array yang dapat diiterasi
+
+					document.getElementById('desa2').innerHTML = '<option value="">Pilih Desa</option>';
+					data.forEach(desa => {
+						var option = document.createElement('option');
+						option.value = desa.desaId;
+						option.text = desa.namaDesa;
+						document.getElementById('desa2').add(option);
+					});
+				})
+				.catch(error => {
+					console.error('Error fetching desa:', error);
+				});
+
+		}
+
+	</script>
+
+</body>
+
+</html>

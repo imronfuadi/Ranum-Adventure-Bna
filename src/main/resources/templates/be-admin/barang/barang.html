@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="id" xmlns:th="http://www.thymeleaf.org">
+
+<div th:replace="~{'be-admin/head' :: head}"></div>
+
+<body>
+	<!-- tap on top start-->
+	<div class="tap-top">
+		<span class="lnr lnr-chevron-up"></span>
+	</div>
+	<!-- tap on tap end-->
+
+	<!-- page-wrapper Start-->
+	<div class="page-wrapper compact-wrapper dark-sidebar" id="pageWrapper">
+		<!-- Page Header Start-->
+		<div th:replace="~{'be-admin/header' :: header}"></div>
+		<!-- Page Header Ends-->
+
+		<!-- Page Body Start-->
+		<div class="page-body-wrapper">
+			<!-- Page Sidebar Start-->
+			<div th:replace="~{'be-admin/sidebar' :: sidebar}"></div>
+			<!-- Page Sidebar Ends-->
+
+			<!-- Container-fluid starts-->
+			<div class="page-body">
+				<div id="alert-error" th:if="${error}" class="alert alert-danger" role="alert">
+					<span th:text="${error}"></span>
+				</div>
+				<div id="alert-success" th:if="${success}" class="alert alert-success" role="alert">
+					<span th:text="${success}"></span>
+				</div>
+
+				<div class="title-header">
+					<h5>Data Barang</h5>
+				</div>
+
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="card">
+								<div class="card-body">
+									<div>
+										<div class="table-responsive table-desi table-product">
+											<table class="table table-1d all-package">
+												<thead>
+													<tr>
+														<th>No</th>
+														<th>Foto</th>
+														<th>Kategori</th>
+														<th>Nama Barang</th>
+														<th>Deskripsi</th>
+														<th>Jumlah</th>
+														<th>Harga</th>
+														<th>Option</th>
+													</tr>
+												</thead>
+
+												<tbody>
+													<tr th:each="b, stat :${barangList}">
+														<td th:text="${stat.count}"></td>
+														<!--<td th:text="${b.foto}"></td>-->
+														<td>
+															<img th:src="${b.photosBarangPath}" class="img-fluid" alt=""
+																style="width:50px; height:70px;">
+														</td>
+														<td th:text="${b.Kategori.namaKategori}"></td>
+														<td th:text="${b.namaBarang}"></td>
+														<td th:text="${b.deskripsi}"></td>
+														<td th:text="${b.jumlah}"></td>
+														<td
+															th:text="${'Rp.' + #numbers.formatDecimal(b.harga, 0, 'POINT', 0, 'COMMA')}">
+														</td>
+														<td>
+															<ul>
+
+																<li>
+																	<a th:href="@{/barang/form/{id}(id=${b.barangId})}">
+																		<span class="lnr lnr-pencil"></span>
+																	</a>
+																</li>
+
+																<li>
+																	<a th:href="@{/barang/delete/{id}(id=${b.barangId})}"
+																		data-bs-toggle="modal"
+																		data-bs-target="#exampleModal"
+																		onclick="setDeleteUrl(this)">
+																		<i class="far fa-trash-alt theme-color"></i>
+																	</a>
+																</li>
+															</ul>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+
+								<div class="pagination-box" th:if="${totalPages > 0}">
+									<nav aria-label="...">
+										<ul class="pagination pagination-primary">
+											<li class="page-item" th:classappend="${currentPage == 0} ? 'disabled'">
+												<a class="page-link"
+													th:href="@{/kategori/list(page=${currentPage - 1})}"
+													tabindex="-1">Previous</a>
+											</li>
+
+											<th:block th:if="${currentPage > 2}">
+												<li class="page-item">
+													<a class="page-link" th:href="@{'/kategori/list?page=0'}">1</a>
+												</li>
+												<li class="page-item disabled">
+													<span class="page-link">...</span>
+												</li>
+											</th:block>
+
+											<th:block
+												th:each="pageNumber : ${#numbers.sequence(currentPage - 1, currentPage + 1)}"
+												th:if="${pageNumber >= 0 and pageNumber < totalPages}">
+												<li class="page-item"
+													th:classappend="${currentPage == pageNumber} ? 'active'">
+													<a class="page-link"
+														th:href="@{'/kategori/list?page=' + ${pageNumber}}">[[${pageNumber
+														+
+														1}]]</a>
+												</li>
+											</th:block>
+
+											<th:block th:if="${currentPage < totalPages - 3}">
+												<li class="page-item disabled">
+													<span class="page-link">...</span>
+												</li>
+												<li class="page-item">
+													<a class="page-link"
+														th:href="@{/kategori/list(page= ${totalPages - 1})}">[[${totalPages}]]</a>
+												</li>
+											</th:block>
+
+											<li class="page-item"
+												th:classappend="${currentPage == (totalPages - 1)} ? 'disabled'">
+												<a class="page-link"
+													th:href="@{/kategori/list(page=${currentPage + 1})}">Next</a>
+											</li>
+										</ul>
+									</nav>
+								</div>
+
+								<!--<div class="pagination-box">
+									<nav class="ms-auto me-auto " aria-label="...">
+										<ul class="pagination pagination-primary">
+											<li class="page-item disabled">
+												<a class="page-link" href="javascript:void(0)"
+													tabindex="-1">Previous</a>
+											</li>
+
+											<li class="page-item active">
+												<a class="page-link" href="javascript:void(0)">1</a>
+											</li>
+											<li class="page-item">
+												<a class="page-link" href="javascript:void(0)">2 <span
+														class="sr-only">(current)</span>
+												</a>
+											</li>
+
+											<li class="page-item">
+												<a class="page-link" href="javascript:void(0)">3</a>
+											</li>
+
+											<li class="page-item">
+												<a class="page-link" href="javascript:void(0)">Next</a>
+											</li>
+										</ul>
+									</nav>
+								</div>-->
+
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- Container-fluid Ends-->
+
+				<div th:replace="~{'be-admin/footer' :: footer}"></div>
+			</div>
+		</div>
+	</div>
+	<!-- page-wrapper End-->
+
+	<!-- Modal Start -->
+	<div th:replace="~{'be-admin/modal' :: modal}"></div>
+	<!-- Modal End -->
+
+	<div th:replace="~{'be-admin/script' :: script}"></div>
+	
+	<!-- Tambahkan script di bagian bawah file -->
+	<script>
+		// Hilangkan alert-success setelah 3 detik
+		const alertSuccess = document.getElementById('alert-success');
+		if (alertSuccess) {
+			setTimeout(() => {
+				alertSuccess.style.transition = "opacity 0.5s";
+				alertSuccess.style.opacity = 0;
+				setTimeout(() => alertSuccess.remove(), 500); // remove node after fade-out
+			}, 3000); // 3 detik
+		}
+
+		// Hilangkan alert-error setelah 3 detik
+		const alertError = document.getElementById('alert-error');
+		if (alertError) {
+			setTimeout(() => {
+				alertError.style.transition = "opacity 0.5s";
+				alertError.style.opacity = 0;
+				setTimeout(() => alertError.remove(), 500);
+			}, 3000); // 3 detik
+		}
+	</script>
+</body>
+
+</html>

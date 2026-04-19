@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="id" xmlns:th="http://www.thymeleaf.org">
+
+<div th:replace="~{'be-admin/head' :: head}"></div>
+
+<body>
+	<!-- tap on top start-->
+	<div class="tap-top">
+		<span class="lnr lnr-chevron-up"></span>
+	</div>
+	<!-- tap on tap end-->
+
+	<!-- page-wrapper Start-->
+	<div class="page-wrapper compact-wrapper dark-sidebar" id="pageWrapper">
+		<!-- Page Header Start-->
+		<div th:replace="~{'be-admin/header' :: header}"></div>
+		<!-- Page Header Ends-->
+
+		<!-- Page Body Start-->
+		<div class="page-body-wrapper">
+			<!-- Page Sidebar Start-->
+			<div th:replace="~{'be-admin/sidebar' :: sidebar}"></div>
+			<!-- Page Sidebar Ends-->
+
+			<!-- Container-fluid starts-->
+			<div class="page-body">
+				<div class="title-header">
+					<h5>UMKM List</h5>
+				</div>
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="card">
+								<div class="card-body">
+									<h2 th:if="${message}" th:text="${message}"></h2>
+									<form th:action="@{/umkm/import}" method="post" enctype="multipart/form-data">
+										<input type="file" name="file" />
+										<button type="submit" value="Import">Upload</button>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="card">
+								<div class="card-body">
+									<div>
+										<div class="table-responsive table-desi table-product">
+											<table class="table table-1d all-package">
+												<thead>
+													<tr>
+														<th>Id</th>
+														<th>NIK</th>
+														<th>Nama Pemilik</th>
+														<th>Produk</th>
+														<th>Alamat Pemilik</th>
+														<th>Alamat Usaha</th>
+														<th>Omset Per Tahun</th>
+														<th>Kekayaan Bersih</th>
+														<th>Jenis Kegiatan Usaha</th>
+														<th>Ijin Usaha</th>
+														<th>Permasalahan</th>
+														<th>Kluster</th>
+														<th>Keterangan</th>
+														<th>Option</th>
+													</tr>
+												</thead>
+
+												<tbody>
+													<tr th:each="u :${umkmList}">
+														<td th:text="${u.id}"></td>
+
+														<td th:text="${u.nik}">
+														</td>
+
+														<td th:text="${u.namaPemilik}">
+														</td>
+
+														<td th:text="${u.produk}"></td>
+
+														<td th:text="${u.alamatPemilik}"></td>
+
+														<td th:text="${u.alamatUsaha}"></td>
+
+														<td th:text="${u.omsetPerTahun}">
+														</td>
+
+														<td th:text="${u.kekayaanBersih}">
+														</td>
+
+														<td th:text="${u.jenisKegiatanUsaha}"></td>
+
+														<td th:text="${u.ijinUsaha}"></td>
+
+														<td th:text="${u.permasalahan}"></td>
+
+														<td th:text="${u.kluster}">
+														</td>
+
+														<td th:text="${u.keterangan}">
+														</td>
+
+														<td>
+															<ul>
+																<li>
+																	<a th:href="@{/umkm/edit/{id}(id=${u.id})}">
+																		<span class="lnr lnr-pencil"></span>
+																	</a>
+																</li>
+																<li>
+																	<a th:href="@{/umkm/delete/{id}(id=${u.id})}"
+																		data-bs-toggle="modal"
+																		data-bs-target="#exampleModal"
+																		onclick="setDeleteUrl(this)">
+																		<i class="far fa-trash-alt theme-color"></i>
+																	</a>
+																</li>
+															</ul>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+
+								<div class="pagination-box" th:if="${totalPages > 0}">
+									<nav aria-label="...">
+										<ul class="pagination pagination-primary">
+											<li class="page-item" th:classappend="${currentPage == 0} ? 'disabled'">
+												<a class="page-link"
+													th:href="@{'/umkm/list?page=' + ${currentPage - 1}}"
+													tabindex="-1">Previous</a>
+											</li>
+
+											<th:block th:if="${currentPage > 2}">
+												<li class="page-item">
+													<a class="page-link" th:href="@{'/umkm/list?page=' + 0}">1</a>
+												</li>
+												<li class="page-item disabled">
+													<span class="page-link">...</span>
+												</li>
+											</th:block>
+
+											<th:block
+												th:each="pageNumber : ${#numbers.sequence(currentPage - 1, currentPage + 1)}"
+												th:if="${pageNumber >= 0 and pageNumber < totalPages}">
+												<li class="page-item"
+													th:classappend="${currentPage == pageNumber} ? 'active'">
+													<a class="page-link"
+														th:href="@{/umkm/list(page=${pageNumber})}">[[${pageNumber +
+														1}]]</a>
+												</li>
+											</th:block>
+
+
+											<th:block th:if="${currentPage < totalPages - 3}">
+												<li class="page-item disabled">
+													<span class="page-link">...</span>
+												</li>
+												<li class="page-item">
+													<a class="page-link"
+														th:href="@{'/umkm/list?page=' + (totalPages - 1)}">[[${totalPages}]]</a>
+												</li>
+											</th:block>
+
+											<li class="page-item"
+												th:classappend="${currentPage == totalPages - 1} ? 'disabled'">
+												<a class="page-link"
+													th:href="@{'/umkm/list?page=' + ${currentPage + 1}}">Next</a>
+											</li>
+										</ul>
+									</nav>
+								</div>
+
+
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- Container-fluid Ends-->
+
+				<div th:replace="~{'be-admin/footer' :: footer}"></div>
+			</div>
+		</div>
+	</div>
+	<!-- page-wrapper End-->
+
+	<!-- Modal Start -->
+	<div th:replace="~{'be-admin/modal' :: modal}"></div>
+	<!-- Modal End -->
+
+	<div th:replace="~{'be-admin/script' :: script}"></div>
+	
+
+</body>
+
+</html>

@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="id" xmlns:th="http://www.thymeleaf.org">
+
+<div th:replace="~{'be-admin/head' :: head}"></div>
+
+<body>
+	<!-- tap on top start-->
+	<div class="tap-top">
+		<span class="lnr lnr-chevron-up"></span>
+	</div>
+	<!-- tap on tap end-->
+
+	<!-- page-wrapper Start-->
+	<div class="page-wrapper compact-wrapper dark-sidebar" id="pageWrapper">
+		<!-- Page Header Start-->
+		<div th:replace="~{'be-admin/header' :: header}"></div>
+		<!-- Page Header Ends-->
+
+		<!-- Page Body Start-->
+		<div class="page-body-wrapper">
+			<!-- Page Sidebar Start-->
+			<div th:replace="~{'be-admin/sidebar' :: sidebar}"></div>
+			<!-- Page Sidebar Ends-->
+
+			<!-- Container-fluid starts-->
+			<div class="page-body">
+				<div class="title-header">
+					<h5>Pengembalian</h5>
+				</div>
+
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="card">
+								<div class="card-body">
+									<div>
+										<div class="table-responsive table-desi table-product">
+											<table class="table table-1d all-package">
+												<thead>
+													<tr>
+														<th>No</th>
+														<th>Id Sewa</th>
+														<th>Nama</th>
+														<th>Tanggal Sewa</th>
+														<th>Lama Sewa</th>
+														<th>Total Harga</th>
+														<!--<th>Status</th>-->
+														<th>Status Penyewaan</th>
+														<th>Option</th>
+													</tr>
+												</thead>
+
+												<tbody>
+													<tr th:each="p, stat :${penyewaanList}">
+														<td th:text="${stat.count}"></td>
+														<td th:text="${p.penyewaanId}"></td>
+														<td th:text="${p.pelanggan.nama}"></td>
+															<!--<td th:text="${p.tanggalPinjam}"></td>-->
+														<td
+															th:text="${#temporals.format(p.tanggalPinjam, 'dd-MM-yyyy')}">
+														</td>
+														<td th:text="${p.lamaSewa}"></td>
+														<td
+															th:text="${'Rp.' + #numbers.formatDecimal(p.totalHarga, 0, 'POINT', 0, 'COMMA')}">
+														</td>
+														<!--<td th:text="${p.status}"></td>-->
+														<td th:text="${p.statusPenyewaan}"></td>
+														<td>
+															<ul>
+																<!--<li>
+																	<a href="order-detail.html">
+																		<span class="lnr lnr-eye"></span>
+																	</a>
+																</li>
+
+																<li>
+																	<a
+																		th:href="@{/penyewaan/form/{id}(id=${p.penyewaanId})}">
+																		<span class="lnr lnr-pencil"></span>
+																	</a>
+																</li>
+
+																<li>
+																	<a
+																		th:href="@{/penyewaan/delete/{id}(id=${p.penyewaanId})}">
+																		<i class="far fa-trash-alt theme-color"></i>
+																	</a>
+																</li>-->
+																<li>
+																	<!--<form
+																		th:action="@{/pengembalian/proses/{id}(id=${p.penyewaanId})}"
+																		method="post"
+																		data-bs-toggle="modal"
+																		data-bs-target="#modalKembalikan"
+																		onclick="setKembalikanUrl(this)">
+																		<button
+																			class="btn btn-success">Kembalikan</button>
+																	</form>-->
+																	<button type="button" class="btn btn-success"
+																		data-bs-toggle="modal"
+																		data-bs-target="#modalKembalikan"
+																		th:attr="data-id=${p.penyewaanId}">
+																		Kembalikan
+																	</button>
+																</li>
+															</ul>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+
+								<div class="pagination-box" th:if="${totalPages > 0}">
+									<nav aria-label="...">
+										<ul class="pagination pagination-primary">
+											<li class="page-item" th:classappend="${currentPage == 0} ? 'disabled'">
+												<a class="page-link"
+													th:href="@{/pengembalian/list(page=${currentPage - 1})}"
+													tabindex="-1">Previous</a>
+											</li>
+
+											<th:block th:if="${currentPage > 2}">
+												<li class="page-item">
+													<a class="page-link" th:href="@{'/pengembalian/list?page=0'}">1</a>
+												</li>
+												<li class="page-item disabled">
+													<span class="page-link">...</span>
+												</li>
+											</th:block>
+
+											<th:block
+												th:each="pageNumber : ${#numbers.sequence(currentPage - 1, currentPage + 1)}"
+												th:if="${pageNumber >= 0 and pageNumber < totalPages}">
+												<li class="page-item"
+													th:classappend="${currentPage == pageNumber} ? 'active'">
+													<a class="page-link"
+														th:href="@{'/pengembalian/list?page=' + ${pageNumber}}">[[${pageNumber
+														+
+														1}]]</a>
+												</li>
+											</th:block>
+
+											<th:block th:if="${currentPage < totalPages - 3}">
+												<li class="page-item disabled">
+													<span class="page-link">...</span>
+												</li>
+												<li class="page-item">
+													<a class="page-link"
+														th:href="@{/pengembalian/list(page= ${totalPages - 1})}">[[${totalPages}]]</a>
+												</li>
+											</th:block>
+
+											<li class="page-item"
+												th:classappend="${currentPage == (totalPages - 1)} ? 'disabled'">
+												<a class="page-link"
+													th:href="@{/pengembalian/list(page=${currentPage + 1})}">Next</a>
+											</li>
+										</ul>
+									</nav>
+								</div>
+
+								<!--<div class="pagination-box">
+									<nav class="ms-auto me-auto " aria-label="...">
+										<ul class="pagination pagination-primary">
+											<li class="page-item disabled">
+												<a class="page-link" href="javascript:void(0)"
+													tabindex="-1">Previous</a>
+											</li>
+
+											<li class="page-item active">
+												<a class="page-link" href="javascript:void(0)">1</a>
+											</li>
+											<li class="page-item">
+												<a class="page-link" href="javascript:void(0)">2 <span
+														class="sr-only">(current)</span>
+												</a>
+											</li>
+
+											<li class="page-item">
+												<a class="page-link" href="javascript:void(0)">3</a>
+											</li>
+
+											<li class="page-item">
+												<a class="page-link" href="javascript:void(0)">Next</a>
+											</li>
+										</ul>
+									</nav>
+								</div>-->
+
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- Container-fluid Ends-->
+
+				<div th:replace="~{'be-admin/footer' :: footer}"></div>
+			</div>
+		</div>
+	</div>
+	<!-- page-wrapper End-->
+
+	<!-- Modal Start -->
+	<div th:replace="~{'be-admin/modal' :: modal}"></div>
+	<!-- Modal End -->
+
+	<div th:replace="~{'be-admin/script' :: script}"></div>
+
+	<!-- Modal -->
+	<!--<div class="modal fade" id="modalKembalikan" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Konfirmasi Kembali</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					Apakah Anda yakin ingin mengembalikan data ini?
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+					<a id="kembalikanButton" class="btn btn-danger">Kembalikan</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<script>
+		function setKembalikanUrl(link) {
+			event.preventDefault(); // Cegah klik langsung
+			var kembalikanUrl = link.getAttribute('href');
+			document.getElementById('kembalikanButton').setAttribute('href', kembalikanUrl);
+		}
+	</script>-->
+
+	<!-- Modal Konfirmasi -->
+	<div class="modal fade" id="modalKembalikan" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<form id="modalKembalikanForm" method="post">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Konfirmasi Kembali</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						Apakah Anda yakin ingin mengembalikan data ini?
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+						<button type="submit" class="btn btn-danger">Kembalikan</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+
+	<script>
+		document.addEventListener('DOMContentLoaded', function () {
+			const modalKembalikan = document.getElementById('modalKembalikan');
+			modalKembalikan.addEventListener('show.bs.modal', function (event) {
+				const button = event.relatedTarget;
+				const id = button.getAttribute('data-id');
+				const form = modalKembalikan.querySelector('#modalKembalikanForm');
+				form.setAttribute('action', `/pengembalian/proses/${id}`);
+			});
+		});
+	</script>
+
+
+
+</body>
+
+</html>

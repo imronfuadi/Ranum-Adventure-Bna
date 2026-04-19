@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="id" xmlns:th="http://www.thymeleaf.org">
+
+<div th:replace="~{'be-admin/head' :: head}"></div>
+
+<body>
+	<!-- tap on top start -->
+	<div class="tap-top">
+		<span class="lnr lnr-chevron-up"></span>
+	</div>
+	<!-- tap on tap end -->
+
+	<!-- page-wrapper start -->
+	<div class="page-wrapper compact-wrapper dark-sidebar" id="pageWrapper">
+		<!-- Page Header start -->
+		<div th:replace="~{'be-admin/header' :: header}"></div>
+		<!-- Page Header end -->
+
+		<!-- Page Body start -->
+		<div class="page-body-wrapper">
+			<!-- Page Sidebar Start-->
+			<div th:replace="~{'be-admin/sidebar' :: sidebar}"></div>
+			<!-- Page Sidebar Ends-->
+
+			<div class="page-body">
+				<div class="title-header">
+					<h5>Tambah Barang</h5>
+				</div>
+
+				<!-- New Product Add Start -->
+				<form th:action="@{/barang/save}" th:object="${barangDto}" method="post" enctype="multipart/form-data">
+					<div class="container-fluid">
+						<div class="row">
+							<div class="col-12">
+								<div class="row">
+									<div class="col-sm-12">
+										<div class="card">
+											<div class="card-body">
+
+												<div class="theme-form theme-form-2 mega-form">
+													<div class="row">
+														<div class="mb-4 row align-items-center">
+															<label
+																class="col-sm-2 col-form-label form-label-title">Kategori</label>
+															<div class="col-sm-10">
+																<select class="js-example-basic-single w-100"
+																	name="kategoriId" th:field="*{kategoriId}">
+																	<option value=""></option>
+																	<option th:each="kategori : ${kategoriList}"
+																		th:value="${kategori.kategoriId}"
+																		th:text="${kategori.namaKategori}"></option>
+																</select>
+															</div>
+														</div>
+														<div class="mb-4 row align-items-center">
+															<label class="form-label-title col-sm-2 mb-0">Nama
+																Barang</label>
+															<div class="col-sm-10">
+																<input class="form-control" type="text"
+																	placeholder="Nama Barang" th:field="*{namaBarang}"
+																	id="namaBarang" name="namaBarang" required>
+															</div>
+														</div>
+														<div class="mb-4 row align-items-center">
+															<label class="form-label-title col-sm-2 mb-0">Deskripsi</label>
+															<div class="col-sm-10">
+																<input class="form-control" type="text"
+																	placeholder="Deskripsi" th:field="*{deskripsi}"
+																	id="deskripsi" name="deskripsi" required>
+															</div>
+														</div>
+														<div class="mb-4 row align-items-center">
+															<label class="form-label-title col-sm-2 mb-0">Jumlah</label>
+															<div class="col-sm-10">
+																<input class="form-control" type="number"
+																	placeholder="Jumlah"
+																	th:field="*{jumlah}" id="jumlah" name="harga" required>
+															</div>
+														</div>
+														<div class="mb-4 row align-items-center">
+															<label class="form-label-title col-sm-2 mb-0">Harga</label>
+															<div class="col-sm-10">
+																<input class="form-control" type="text"
+																	placeholder="Harga"
+																	th:field="*{harga}" id="harga" name="harga" required>
+															</div>
+														</div>
+														<div class="mb-4 row align-items-center">
+															<label class="form-label-title col-sm-2 mb-0">Foto</label>
+															<div class="col-sm-10">
+																<input class="form-control" type="file"
+																	placeholder="Foto"
+																	th:field="*{foto}" id="foto" name="foto" required>
+															</div>
+														</div>
+														<!--<div class="mb-4 row align-items-center">
+															<label
+																class="col-sm-2 col-form-label form-label-title">Category</label>
+															<div class="col-sm-10">
+																<select class="js-example-basic-single w-100"
+																	th:field="*{categories}">
+																	<option disabled="disabled" selected="selected"
+																		value="">Category Menu</option>
+																	<option th:each="category : ${categories}"
+																		th:value="${category.id}"
+																		th:text="${category.name}"></option>
+																</select>
+															</div>
+														</div>-->
+													</div>
+												</div>
+											</div>
+										</div>
+
+										<!--<div class="card">
+											<div class="card-body">
+												<div class="card-header-2">
+													<h5>Description</h5>
+												</div>
+
+												<div class="theme-form theme-form-2 mega-form">
+													<div class="row">
+														<div class="col-12">
+															<div class="row">
+																<label class="form-label-title col-sm-2 mb-0">Product
+																	Description</label>
+																<div class="col-sm-10">
+																	<div id="editor">
+																		<input class="form-control" type="text"
+																			placeholder="Product Description"
+																			th:field="*{description}" id="description">
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>-->
+
+										<!--<div class="card">
+											<div class="card-body">
+												<div class="card-header-2">
+													<h5>Product Images</h5>
+												</div>
+
+												<div class="theme-form theme-form-2 mega-form">
+													<div class="row">
+														<div class="mb-4 row align-items-center">
+															<label
+																class="col-sm-2 col-form-label form-label-title">Images</label>
+															<div class="col-sm-10">
+																<input class="form-control form-choose" type="file"
+																	name="image" id="formFileMultiple"
+																	accept="image/png, image/jpeg" multiple>
+															</div>
+														</div>
+
+
+													</div>
+												</div>
+											</div>
+										</div>-->
+
+
+										<div class="card">
+											<div class="card-body">
+
+												<div class="theme-form theme-form-2 mega-form">
+													<div class="row">
+														<div class="col-12">
+															<div class="row">
+																<button type="submit"
+																	class="btn btn-success float-right">
+																	<i class="fas fa-plus-square">Add</i>
+																</button>
+																<hr>
+																<a th:href="@{/product/list}"
+																	class="btn btn-primary float-left"><i
+																		class="fas fa-angle-left">Back</i></a>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</form>
+				<!-- New Product Add End -->
+
+				<!-- footer Start -->
+				<div th:replace="~{'be-admin/footer' :: footer}"></div>
+				<!-- footer En -->
+			</div>
+			<!-- Container-fluid End -->
+		</div>
+		<!-- Page Body End -->
+	</div>
+	<!-- page-wrapper End -->
+
+	<!-- Modal Start -->
+	<div th:replace="~{'be-admin/modal' :: modal}"></div>
+	<!-- Modal End -->
+
+	<div th:replace="~{'be-admin/script' :: script}"></div>
+
+</body>
+
+</html>

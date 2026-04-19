@@ -1,0 +1,21 @@
+server:
+  port: 2122
+spring:
+  datasource:
+    hikari:
+      connection-timeout: 60000
+      idle-timeout: 60000
+      max-lifetime: 1800000
+      maximum-pool-size: 10
+    url: jdbc:postgresql://127.0.0.1/db_ranum_adventure_banjarnegara
+    username: imron
+    password: imron
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    database: POSTGRESQL
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true

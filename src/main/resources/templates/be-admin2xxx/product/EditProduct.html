@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="id" xmlns:th="http://www.thymeleaf.org">
+
+<div th:replace="~{'be-admin/head' :: head}"></div>
+
+<body>
+	<!-- tap on top start -->
+	<div class="tap-top">
+		<span class="lnr lnr-chevron-up"></span>
+	</div>
+	<!-- tap on tap end -->
+
+	<!-- page-wrapper start -->
+	<div class="page-wrapper compact-wrapper dark-sidebar" id="pageWrapper">
+		<!-- Page Header start -->
+		<div th:replace="~{'be-admin/header' :: header}"></div>
+		<!-- Page Header end -->
+
+		<!-- Page Body start -->
+		<div class="page-body-wrapper">
+			<!-- Page Sidebar Start-->
+			<div th:replace="~{'be-admin/sidebar' :: sidebar}"></div>
+			<!-- Page Sidebar Ends-->
+
+			<div class="page-body">
+				<div class="title-header">
+					<h5>Edit Product</h5>
+				</div>
+
+				<!-- New Product Add Start -->
+				<form th:action="@{/product/update/{id}(id=${getEditProduct.id})}" th:object="${getEditProduct}"
+					method="post" enctype="multipart/form-data">
+					<div class="container-fluid">
+						<div class="row">
+							<div class="col-12">
+								<div class="row">
+									<div class="col-sm-12">
+										<div class="card">
+											<div class="card-body">
+												<div class="card-header-2">
+													<h5>Product Information</h5>
+												</div>
+
+												<div class="theme-form theme-form-2 mega-form">
+													<div class="row">
+														<div class="mb-4 row align-items-center">
+															<label class="form-label-title col-sm-2 mb-0">Product
+																Name</label>
+															<div class="col-sm-10">
+																<input class="form-control" type="text" th:field="*{productName}"
+																	id="productName">
+															</div>
+														</div>
+														<div class="mb-4 row align-items-center">
+															<label class="form-label-title col-sm-2 mb-0">Product
+																Price</label>
+															<div class="col-sm-10">
+																<input class="form-control" type="text" th:field="*{price}"
+																	id="price">
+															</div>
+														</div>
+														<div class="mb-4 row align-items-center">
+															<label class="form-label-title col-sm-2 mb-0">Product
+																Quantity</label>
+															<div class="col-sm-10">
+																<input class="form-control" type="text" th:field="*{quantity}"
+																	id="quantity">
+															</div>
+														</div>
+
+													</div>
+												</div>
+											</div>
+										</div>
+
+										<div class="card">
+											<div class="card-body">
+												<div class="card-header-2">
+													<h5>Description</h5>
+												</div>
+
+												<div class="theme-form theme-form-2 mega-form">
+													<div class="row">
+														<div class="col-12">
+															<div class="row">
+																<label class="form-label-title col-sm-2 mb-0">Product
+																	Description</label>
+																<div class="col-sm-10">
+																	<div id="editor">
+																		<input class="form-control" type="text"
+																			th:field="*{description}" id="description">
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+
+										<div class="card">
+											<div class="card-body">
+												<div class="card-header-2">
+													<h5>Product Images</h5>
+												</div>
+
+												<div class="theme-form theme-form-2 mega-form">
+													<div class="row">
+														<div class="mb-4 row align-items-center">
+															<label class="col-sm-2 col-form-label form-label-title">Images</label>
+															<div class="col-sm-10">
+																<input class="form-control form-choose" type="file" name="image"
+																	id="formFileMultiple" accept="image/png, image/jpeg" multiple>
+															</div>
+														</div>
+
+
+													</div>
+												</div>
+											</div>
+										</div>
+
+
+										<div class="card">
+											<div class="card-body">
+
+												<div class="theme-form theme-form-2 mega-form">
+													<div class="row">
+														<div class="col-12">
+															<div class="row">
+																<button type="submit"
+																	class="btn btn-success float-right">
+																	<i class="fas fa-plus-square">Edit</i>
+																</button>
+																<hr>
+																<a th:href="@{/product/list}"
+																	class="btn btn-primary float-left"><i
+																	class="fas fa-angle-left">Back</i></a>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</form>
+				<!-- New Product Add End -->
+
+				<!-- footer Start -->
+				<div th:replace="~{'be-admin/footer' :: footer}"></div>
+				<!-- footer En -->
+			</div>
+			<!-- Container-fluid End -->
+		</div>
+		<!-- Page Body End -->
+	</div>
+	<!-- page-wrapper End -->
+
+	<!-- Modal Start -->
+	<div th:replace="~{'be-admin/modal' :: modal}"></div>
+	<!-- Modal End -->
+
+	<div th:replace="~{'be-admin/script' :: script}"></div>
+
+</body>
+
+</html>

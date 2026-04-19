@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<div th:replace="~{'be-admin/head' :: head}"></div>
+
+<body>
+	<!-- login page start-->
+	<div class="container-fluid p-0">
+		<div class="row m-0">
+			<div class="col-12 p-0">
+				<!-- Sign Up Section Start -->
+				<div class="login-section">
+					<div class="materialContainer">
+						<form method="post" role="form" th:action="@{/register/save}" th:object="${user}">
+							<div class="box">
+								<div class="login-title">
+									<h2>Register</h2>
+								</div>
+
+								<div class="input">
+									<label for="firstname">Firstname</label>
+									<input type="text" name="firstname" id="firstname" th:field="*{firstName}">
+									<span class="spin"></span>
+								</div>
+
+								<div class="input">
+									<label for="lastname">Lastname</label>
+									<input type="text" name="lastname" id="lastname" th:field="*{lastName}">
+									<span class="spin"></span>
+								</div>
+								
+								<div class="input">
+									<label for="email">Email</label>
+									<input type="email" name="email" id="email" th:field="*{email}">
+									<span class="spin"></span>
+								</div>
+
+								<div class="input">
+									<label for="password">Password</label>
+									<input type="password" name="password" id="password" th:field="*{password}">
+									<span class="spin"></span>
+								</div>
+
+								<!--<div class="input">
+									<label for="compass">Confirm Password</label>
+									<input type="password" name="pass" id="compass">
+									<span class="spin"></span>
+								</div>-->
+
+								<div class="button login">
+									<button onclick="location.href = 'index.html';">
+										<span>Sign Up</span>
+										<i class="fa fa-check"></i>
+									</button>
+								</div>
+
+								<p class="sign-category">
+									<span>Or sign up with</span>
+								</p>
+
+								<!--<div class="row gx-md-3 gy-3">
+									<div class="col-md-6">
+										<a href="javascript:void(0)">
+											<div class="social-media fb-media">
+												<img src="assets/images/facebook.png" class="img-fluid blur-up lazyload"
+													alt="">
+												<h6>Facebook</h6>
+											</div>
+										</a>
+									</div>
+									<div class="col-md-6">
+										<a href="javascript:void(0)">
+											<div class="social-media google-media">
+												<img src="assets/images/google.png" class="img-fluid blur-up lazyload"
+													alt="">
+												<h6>Google</h6>
+											</div>
+										</a>
+									</div>
+								</div>-->
+								<p>
+									<a th:href="@{/login}" class="theme-color">Already have an account?</a>
+								</p>
+							</div>
+						</form>
+					</div>
+				</div>
+				<!-- Sign Up Section End -->
+			</div>
+		</div>
+	</div>
+	<!-- login page End -->
+
+	<div th:replace="~{'be-admin/script' :: script}"></div>
+</body>
+
+</html>

@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="id" xmlns:th="http://www.thymeleaf.org">
+
+<div th:replace="~{'be-admin/head' :: head}"></div>
+
+<body>
+	<!-- tap on top start-->
+	<div class="tap-top">
+		<span class="lnr lnr-chevron-up"></span>
+	</div>
+	<!-- tap on tap end-->
+
+	<!-- page-wrapper Start-->
+	<div class="page-wrapper compact-wrapper dark-sidebar" id="pageWrapper">
+		<!-- Page Header Start-->
+		<div th:replace="~{'be-admin/header' :: header}"></div>
+		<!-- Page Header Ends-->
+
+		<!-- Page Body Start-->
+		<div class="page-body-wrapper">
+			<!-- Page Sidebar Start-->
+			<div th:replace="~{'be-admin/sidebar' :: sidebar}"></div>
+			<!-- Page Sidebar Ends-->
+
+			<!-- Container-fluid starts-->
+
+			<div class="page-body">
+				<div class="row">
+					<!-- chart caard section start -->
+					<div class="col-sm-6 col-xxl-3 col-lg-6">
+						<div class="b-b-primary border-5 border-0 card o-hidden">
+							<div class="custome-1-bg b-r-4 card-body">
+								<div class="media align-items-center static-top-widget">
+									<div class="media-body p-0">
+										<span class="m-0">
+											<h3 style="font-weight: bold;">Total Penghasilan</h3>
+										</span>
+										<!-- Total Penghasilan -->
+										<h5 class="mb-0 counter"
+											th:text="'Rp. ' + ${#numbers.formatDecimal(totalPenghasilan, 0, 'POINT', 0, 'COMMA')}">
+										</h5>
+									</div>
+									<div class="align-self-center text-center">
+										<i data-feather="database"></i>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-sm-6 col-xxl-3 col-lg-6">
+						<div class="b-b-danger border-5 border-0 card o-hidden">
+							<div class=" custome-2-bg  b-r-4 card-body">
+								<div class="media static-top-widget">
+									<div class="media-body p-0">
+										<span class="m-0">
+											<h3 style="font-weight: bold;">Total Penyewaan</h3>
+										</span>
+										<!-- Total Penyewaan -->
+										<h5 class="mb-0 counter" th:text="${totalPenyewaan}"></h5>
+									</div>
+									<div class="align-self-center text-center">
+										<i data-feather="shopping-bag"></i>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<!-- chart caard section start -->
+					<div class="col-sm-6 col-xxl-3 col-lg-6">
+						<div class="b-b-primary border-5 border-0 card o-hidden">
+							<div class="custome-1-bg b-r-4 card-body">
+								<div class="media align-items-center static-top-widget">
+									<div class="media-body p-0">
+										<span class="m-0">
+											<h3 style="font-weight: bold;">Penghasilan Bulan ini</h3>
+										</span>
+										<!-- Penghasilan Bulan Ini -->
+										<h5 class="mb-0 counter"
+											th:text="'Rp. ' + ${#numbers.formatDecimal(penghasilanBulanIni, 0, 'POINT', 0, 'COMMA')}">
+										</h5>
+									</div>
+									<div class="align-self-center text-center">
+										<i data-feather="database"></i>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-sm-6 col-xxl-3 col-lg-6">
+						<div class="b-b-danger border-5 border-0 card o-hidden">
+							<div class=" custome-2-bg  b-r-4 card-body">
+								<div class="media static-top-widget">
+									<div class="media-body p-0">
+										<span class="m-0">
+											<h3 style="font-weight: bold;">Total Penyewaan Bulan ini</h3>
+										</span>
+										<!-- Penyewaan Bulan Ini -->
+										<h5 class="mb-0 counter" th:text="${penyewaanBulanIni}"></h5>
+									</div>
+									<div class="align-self-center text-center">
+										<i data-feather="shopping-bag"></i>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="title-header">
+					<h5>Bar Chart</h5>
+				</div>
+
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="card">
+								<div class="card-body">
+									<div class="container">
+										<canvas id="myBarChart"></canvas>
+									</div>
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="title-header">
+					<h5>Pie Chart</h5>
+				</div>
+
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="card">
+								<div class="card-body">
+									<div class="container">
+										<canvas id="myPieChart"></canvas>
+									</div>
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!--<div class="title-header">
+					<h5>Bar Chart Per-Kecamatan</h5>
+				</div>
+
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-sm-12">
+							<div class="card">
+								<div class="card-body">
+									<div class="container">
+										<canvas id="myBarChartKecamatan"></canvas>
+									</div>
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>-->
+				<!-- Container-fluid Ends-->
+
+				<div th:replace="~{'be-admin/footer' :: footer}"></div>
+			</div>
+		</div>
+	</div>
+	<!-- page-wrapper End-->
+
+	<!-- Modal Start -->
+	<div th:replace="~{'be-admin/modal' :: modal}"></div>
+	<!-- Modal End -->
+
+	<div th:replace="~{'be-admin/script' :: script}"></div>
+	<script th:inline="javascript">
+		/* Skrip JavaScript untuk membuat chart */
+		var labels = /*[[${labels}]]*/[];
+		var data = /*[[${data}]]*/[];
+
+		var ctx = document.getElementById('myBarChart').getContext('2d');
+		var myChart = new Chart(ctx, {
+			type: 'bar',
+			data: {
+				labels: labels,
+				datasets: [{
+					label: 'Jumlah Penyewaan / Bulan',
+					data: data,
+					backgroundColor: [
+						'#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0',
+						'#9966FF', '#FF9F40', '#FF6384', '#36A2EB',
+						'#FFCE56', '#4BC0C0', '#9966FF', '#FF9F40'
+					],
+					borderColor: 'rgba(54, 162, 235, 1)',
+					borderWidth: 1
+				}]
+			},
+			options: {
+				responsive: true,
+				scales: {
+					y: {
+						beginAtZero: true
+					}
+				}
+			}
+		});
+
+
+		///////////////////////////////////////////
+
+		/* Skrip JavaScript untuk membuat chart */
+		var ctxPie = document.getElementById('myPieChart').getContext('2d');
+		var myPieChart = new Chart(ctxPie, {
+			type: 'pie',
+			data: {
+				labels: labels,
+				datasets: [{
+					label: 'Distribusi Penyewaan',
+					data: data,
+					backgroundColor: [
+						'#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0',
+						'#9966FF', '#FF9F40', '#FF6384', '#36A2EB',
+						'#FFCE56', '#4BC0C0', '#9966FF', '#FF9F40'
+					],
+					borderColor: "transparent"
+				}]
+			},
+			options: {
+				responsive: true
+			}
+		});
+
+
+	</script>
+</body>
+
+</html>

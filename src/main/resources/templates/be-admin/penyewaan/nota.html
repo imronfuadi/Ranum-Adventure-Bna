@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="id" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Nota Penyewaan</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        h2 { text-align: center; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        table, th, td { border: 1px solid #ccc; padding: 8px; }
+        th { background: #eee; }
+        .total { text-align: right; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+<h2>Nota Penyewaan</h2>
+
+<p><strong>ID Penyewaan:</strong> <span th:text="${penyewaan.penyewaanId}"></span></p>
+<p><strong>Nama Penyewa:</strong> <span th:text="${penyewaan.pelanggan.nama}"></span></p>
+<p><strong>Tanggal Sewa:</strong> <span th:text="${#temporals.format(penyewaan.tanggalPinjam, 'dd-MM-yyyy HH:mm')}"></span></p>
+<p><strong>Tanggal Kembali:</strong> <span th:text="${#temporals.format(penyewaan.tanggalKembali, 'dd-MM-yyyy HH:mm')}"></span></p>
+
+<table>
+    <thead>
+        <tr>
+            <th>Barang</th>
+            <th>Jumlah</th>
+            <th>Harga Satuan</th>
+            <th>Subtotal</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="d : ${penyewaanDetail}">
+            <td th:text="${d.barang.namaBarang}">Barang</td>
+            <td th:text="${d.jumlah}">0</td>
+            <td th:text="${'Rp.' + #numbers.formatDecimal(d.hargaSatuan, 0, 'POINT', 0, 'COMMA')}"></td>
+            <td th:text="${'Rp.' + #numbers.formatDecimal(d.hargaSewa, 0, 'POINT', 0, 'COMMA')}"></td>
+        </tr>
+    </tbody>
+</table>
+
+<h3 class="total">Total: Rp. <span th:text="${'Rp.' + #numbers.formatDecimal(penyewaan.totalHarga, 0, 'POINT', 0, 'COMMA')}"></span></h3>
+
+<p>Status Pembayaran: <span th:text="${penyewaan.statusPembayaran}"></span></p>
+
+</body>
+</html>

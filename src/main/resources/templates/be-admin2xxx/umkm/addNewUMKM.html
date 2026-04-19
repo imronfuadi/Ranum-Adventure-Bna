@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="id" xmlns:th="http://www.thymeleaf.org">
+
+<div th:replace="~{'be/head' :: head}"></div>
+
+<body>
+	<!-- tap on top start -->
+	<div class="tap-top">
+		<span class="lnr lnr-chevron-up"></span>
+	</div>
+	<!-- tap on tap end -->
+
+	<!-- page-wrapper start -->
+	<div class="page-wrapper compact-wrapper dark-sidebar" id="pageWrapper">
+		<!-- Page Header start -->
+		<div th:replace="~{'be/header' :: header}"></div>
+		<!-- Page Header end -->
+
+		<!-- Page Body start -->
+		<div class="page-body-wrapper">
+			<!-- Page Sidebar Start-->
+			<div th:replace="~{'be/sidebar' :: sidebar}"></div>
+			<!-- Page Sidebar Ends-->
+
+			<div class="page-body">
+				<div class="title-header">
+					<h5>Tambah Berita Baru</h5>
+				</div>
+
+				<!-- New Product Add Start -->
+				<form th:action="@{/umkm/submit}" th:object="${addNewUMKM}" method="POST"
+					enctype="multipart/form-data">
+					<div class="container-fluid">
+						<div class="row">
+							<div class="col-12">
+								<div class="row">
+									<div class="col-sm-12">
+
+										<div class="card">
+											<div class="card-body">
+												<div class="card-header-2">
+													<h5>Product Information</h5>
+												</div>
+
+												<div class="theme-form theme-form-2 mega-form">
+													<div class="row">
+														<div class="mb-4 row align-items-center">
+															<label class="form-label-title col-sm-2 mb-0">NIK</label>
+															<div class="col-sm-10">
+																<input class="form-control" type="text"
+																	placeholder="NIK" th:field="*{nik}" id="nik"
+																	name="nik" th:errorClass="is-invalid">
+																<div th:if="${#fields.hasErrors('nik')}"
+																	th:errors="*{nik}"
+																	class="alert alert-danger"></div>
+															</div>
+														</div>
+														<div class="mb-4 row align-items-center">
+															<label
+																class="form-label-title col-sm-2 mb-0">Nama Pemilik</label>
+															<div class="col-sm-10">
+																<input class="form-control" type="text"
+																	placeholder="Nama Pemilik" th:field="*{namaPemilik}"
+																	id="namaPemilik" name="namaPemilik">
+																<div th:if="${#fields.hasErrors('namaPemilik')}"
+																	th:errors="*{namaPemilik}" class="alert alert-danger">
+																</div>
+															</div>
+														</div>
+														<div class="mb-4 row align-items-center">
+															<label
+																class="form-label-title col-sm-2 mb-0">Produk</label>
+															<div class="col-sm-10">
+																<input class="form-control" type="text"
+																	placeholder="Produk" th:field="*{produk}"
+																	id="produk" name="produk">
+																<div th:if="${#fields.hasErrors('produk')}"
+																	th:errors="*{produk}" class="alert alert-danger">
+																</div>
+															</div>
+														</div>
+														<div class="mb-4 row align-items-center">
+															<label
+																class="form-label-title col-sm-2 mb-0">Alamat Pemilik</label>
+															<div class="col-sm-10">
+																<input class="form-control" type="text"
+																	placeholder="Alamat Pemilik" th:field="*{alamatPemilik}"
+																	id="alamatPemilik" name="alamatPemilik">
+																<div th:if="${#fields.hasErrors('alamatPemilik')}"
+																	th:errors="*{alamatPemilik}" class="alert alert-danger">
+																</div>
+															</div>
+														</div>
+														<div class="mb-4 row align-items-center">
+															<label
+																class="form-label-title col-sm-2 mb-0">Alamat Usaha</label>
+															<div class="col-sm-10">
+																<input class="form-control" type="text"
+																	placeholder="Alamat Usaha" th:field="*{alamatUsaha}"
+																	id="alamatUsaha" name="alamatUsaha">
+																<div th:if="${#fields.hasErrors('alamatUsaha')}"
+																	th:errors="*{alamatUsaha}" class="alert alert-danger">
+																</div>
+															</div>
+														</div>
+														<div class="mb-4 row align-items-center">
+															<label
+																class="form-label-title col-sm-2 mb-0">Omset Per Tahun</label>
+															<div class="col-sm-10">
+																<input class="form-control" type="text"
+																	placeholder="Omset Per Tahun" th:field="*{omsetPerTahun}"
+																	id="omsetPerTahun" name="omsetPerTahun">
+																<div th:if="${#fields.hasErrors('omsetPerTahun')}"
+																	th:errors="*{omsetPerTahun}" class="alert alert-danger">
+																</div>
+															</div>
+														</div>
+														<div class="mb-4 row align-items-center">
+															<label
+																class="form-label-title col-sm-2 mb-0">Kekayaan Bersih</label>
+															<div class="col-sm-10">
+																<input class="form-control" type="text"
+																	placeholder="Kekayaan Bersih" th:field="*{kekayaanBersih}"
+																	id="kekayaanBersih" name="kekayaanBersih">
+																<div th:if="${#fields.hasErrors('kekayaanBersih')}"
+																	th:errors="*{kekayaanBersih}" class="alert alert-danger">
+																</div>
+															</div>
+														</div>
+														<div class="mb-4 row align-items-center">
+															<label
+																class="form-label-title col-sm-2 mb-0">Jenis Kegiatan Usaha</label>
+															<div class="col-sm-10">
+																<input class="form-control" type="text"
+																	placeholder="Jenis Kegiatan Usaha" th:field="*{jenisKegiatanUsaha}"
+																	id="jenisKegiatanUsaha" name="jenisKegiatanUsaha">
+																<div th:if="${#fields.hasErrors('jenisKegiatanUsaha')}"
+																	th:errors="*{jenisKegiatanUsaha}" class="alert alert-danger">
+																</div>
+															</div>
+														</div>
+														<div class="mb-4 row align-items-center">
+															<label
+																class="form-label-title col-sm-2 mb-0">Ijin Usaha</label>
+															<div class="col-sm-10">
+																<input class="form-control" type="text"
+																	placeholder="Ijin Usaha" th:field="*{ijinUsaha}"
+																	id="ijinUsaha" name="ijinUsaha">
+																<div th:if="${#fields.hasErrors('ijinUsaha')}"
+																	th:errors="*{ijinUsaha}" class="alert alert-danger">
+																</div>
+															</div>
+														</div>
+														<div class="mb-4 row align-items-center">
+															<label
+																class="form-label-title col-sm-2 mb-0">Permasalahan</label>
+															<div class="col-sm-10">
+																<input class="form-control" type="text"
+																	placeholder="Permasalahan" th:field="*{permasalahan}"
+																	id="permasalahan" name="permasalahan">
+																<div th:if="${#fields.hasErrors('permasalahan')}"
+																	th:errors="*{permasalahan}" class="alert alert-danger">
+																</div>
+															</div>
+														</div>
+														<div class="mb-4 row align-items-center">
+															<label
+																class="form-label-title col-sm-2 mb-0">Kluster</label>
+															<div class="col-sm-10">
+																<input class="form-control" type="text"
+																	placeholder="Kluster" th:field="*{kluster}"
+																	id="kluster" name="kluster">
+																<div th:if="${#fields.hasErrors('kluster')}"
+																	th:errors="*{kluster}" class="alert alert-danger">
+																</div>
+															</div>
+														</div>
+														<div class="mb-4 row align-items-center">
+															<label
+																class="form-label-title col-sm-2 mb-0">Keterangan</label>
+															<div class="col-sm-10">
+																<input class="form-control" type="text"
+																	placeholder="Keterangan" th:field="*{keterangan}"
+																	id="keterangan" name="keterangan">
+																<div th:if="${#fields.hasErrors('keterangan')}"
+																	th:errors="*{keterangan}" class="alert alert-danger">
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+
+										<!--<div class="card">
+											<div class="card-body">
+												<div class="card-header-2">
+													<h5>Deskripsi</h5>
+												</div>
+
+												<form class="theme-form theme-form-2 mega-form">
+													<div class="row">
+														<div class="col-12">
+															<div class="row">
+																<label class="form-label-title col-sm-2 mb-0">Deskripsi
+																	Berita
+																</label>
+																<div class="col-sm-10">
+																	<div id="editor"></div>
+																</div>
+															</div>
+														</div>
+													</div>
+												</form>
+											</div>
+										</div>-->
+
+
+										<!--<div class="card">
+											<div class="card-body">
+												<div class="card-header-2">
+													<h5>Foto Berita</h5>
+												</div>
+
+												<div class="theme-form theme-form-2 mega-form">
+													<div class="row">
+														<div class="mb-4 row align-items-center">
+															<label
+																class="col-sm-2 col-form-label form-label-title">Images</label>
+															<div class="col-sm-10">
+																<input class="form-control form-choose" type="file"
+																	name="image" id="formFileMultiple"
+																	accept="image/png, image/jpeg" multiple>
+																<div th:if="${#fields.hasErrors('pictBerita')}"
+																	th:errors="*{pictBerita}" class="alert alert-danger">
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>-->
+
+
+										<div class="card">
+											<div class="card-body">
+
+												<div class="theme-form theme-form-2 mega-form">
+													<div class="row">
+														<div class="col-12">
+															<div class="row">
+																<button type="submit"
+																	class="btn btn-success float-right">
+																	<i class="fas fa-plus-square">Add</i>
+																</button>
+																<hr>
+																<a th:href="@{/berita/list}"
+																	class="btn btn-primary float-left"><i
+																		class="fas fa-angle-left">Back</i></a>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</form>
+				<!-- New Product Add End -->
+
+				<!-- footer Start -->
+				<div th:replace="~{'be/footer' :: footer}"></div>
+				<!-- footer En -->
+			</div>
+			<!-- Container-fluid End -->
+		</div>
+		<!-- Page Body End -->
+	</div>
+	<!-- page-wrapper End -->
+
+	<!-- Modal Start -->
+	<div th:replace="~{'be/modal' :: modal}"></div>
+	<!-- Modal End -->
+
+	<div th:replace="~{'be/script' :: script}"></div>
+
+
+	<!--<script>
+		CKEDITOR.replace('deskripsi');
+	</script>-->
+	<script>
+		ClassicEditor
+			.create(document.querySelector('#deskripsi'))
+			.then(deskripsi => {
+				console.log(deskripsi);
+			})
+			.catch(error => {
+				console.error(deskripsi);
+			});
+	</script>
+
+</body>
+
+</html>
