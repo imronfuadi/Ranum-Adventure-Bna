@@ -43,6 +43,7 @@
 														<th>Nama</th>
 														<th>Tanggal Sewa</th>
 														<th>Lama Sewa</th>
+														<th>Tenggat Kembali</th>
 														<th>Total Harga</th>
 														<!--<th>Status</th>-->
 														<th>Status Penyewaan</th>
@@ -59,12 +60,25 @@
 														<td
 															th:text="${#temporals.format(p.tanggalPinjam, 'dd-MM-yyyy')}">
 														</td>
-														<td th:text="${p.lamaSewa}"></td>
+														<td th:text="${p.lamaSewa} + ' Hari'"></td>
+														<td
+															th:text="${#temporals.format(p.tanggalKembali, 'dd-MM-yyyy')}">
+														</td>
 														<td
 															th:text="${'Rp.' + #numbers.formatDecimal(p.totalHarga, 0, 'POINT', 0, 'COMMA')}">
 														</td>
-														<!--<td th:text="${p.status}"></td>-->
-														<td th:text="${p.statusPenyewaan}"></td>
+														<td>
+															<span th:if="${p.statusRealtime == 'DISEWA'}" 
+																class="badge bg-primary">DISEWA</span>
+															<span th:if="${p.statusRealtime == 'TERLAMBAT'}" 
+																class="badge bg-danger">
+																<i class="fas fa-exclamation-triangle me-1"></i> TERLAMBAT
+															</span>
+															<span th:if="${p.statusRealtime == 'SELESAI'}" 
+																class="badge bg-success">SELESAI</span>
+															<span th:if="${p.statusRealtime == 'DIBATALKAN'}" 
+																class="badge bg-secondary">DIBATALKAN</span>
+														</td>
 														<td>
 															<ul>
 																<!--<li>

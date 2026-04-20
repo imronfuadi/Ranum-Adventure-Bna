@@ -69,6 +69,16 @@ public class Penyewaan {
     private String buktiTransfer;
     
     @Transient
+	public String getStatusRealtime() {
+        if ("DISEWA".equalsIgnoreCase(statusPenyewaan)) {
+            if (tanggalKembali != null && LocalDateTime.now().isAfter(tanggalKembali)) {
+                return "TERLAMBAT";
+            }
+        }
+        return statusPenyewaan;
+    }
+
+    @Transient
 	public String getBuktiTransferPath() {
         if (buktiTransfer == null || penyewaanId == null) return null;
          

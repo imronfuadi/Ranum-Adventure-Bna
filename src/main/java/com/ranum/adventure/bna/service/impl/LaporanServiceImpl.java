@@ -47,6 +47,11 @@ public class LaporanServiceImpl implements LaporanService{
 	    Pageable pageable = PageRequest.of(page, size);
 	    return penyewaanRepository.searchByKeyword(keyword, pageable);
 	}
+
+	public Page<Penyewaan> findByDateRangePaginated(java.time.LocalDateTime start, java.time.LocalDateTime end, int page, int size) {
+	    Pageable pageable = PageRequest.of(page, size);
+	    return penyewaanRepository.findByTanggalPinjamBetween(start, end, pageable);
+	}
 	
 	@Autowired
     private DataSource dataSource;

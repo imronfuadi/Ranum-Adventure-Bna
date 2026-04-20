@@ -30,6 +30,11 @@ public interface PenyewaanRepository extends JpaRepository<Penyewaan, String> {
 			+ "LOWER(p.pelanggan.nama) LIKE LOWER(CONCAT('%', :keyword, '%'))")
 	Page<Penyewaan> searchByKeyword(@Param("keyword") String keyword, Pageable pageable);
 
+	@Query("SELECT p FROM Penyewaan p WHERE p.tanggalPinjam BETWEEN :startDate AND :endDate")
+	Page<Penyewaan> findByTanggalPinjamBetween(@Param("startDate") java.time.LocalDateTime startDate, 
+											  @Param("endDate") java.time.LocalDateTime endDate, 
+											  Pageable pageable);
+
 	@Query(value = "SELECT COUNT(*) FROM tb_penyewaan WHERE EXTRACT(MONTH FROM tanggal_pinjam) = :month", nativeQuery = true)
 	int countPenyewaanByMonth(@Param("month") int month);
 

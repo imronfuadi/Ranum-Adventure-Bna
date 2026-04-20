@@ -150,19 +150,10 @@
 																					<h5>Lama sewa :</h5>
 																				</td>
 																				<td>
-																					<select class="form-select"
-																						name="lamaSewa"
-																						aria-label="Default select example"
-																						required>
-																						<option value="" disabled
-																							selected>Lama sewa
-																						</option>
-																						<option value="1">2H1M</option>
-																						<option value="2">3H2M</option>
-																						<option value="3">4H3M</option>
-																						<option value="4">5H4M</option>
-																						<option value="5">6H5M</option>
-																					</select>
+																					<input type="number" name="lamaSewa" class="form-control" min="1" value="1" required>
+																					<small class="mt-2 d-block" style="color: #ff4c3b; font-style: italic;">
+																						*Sistem penyewaan dihitung per malam. (Contoh: Sewa 1 hari = Ambil hari ini, kembali besok di jam yang sama).
+																					</small>
 																				</td>
 																			</tr>
 

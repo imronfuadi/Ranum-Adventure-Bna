@@ -27,14 +27,18 @@
 				<div class="title-header d-flex justify-content-between align-items-center">
 					<h5>Laporan</h5>
 
-					<!-- Container tombol pencarian, reset, dan download -->
+					<!-- Container tombol pencarian, filter tanggal, reset, dan download -->
 					<div class="d-flex align-items-center">
 
-						<!-- Form pencarian -->
-						<form th:action="@{/laporan/list}" method="get" class="d-flex me-2" role="search">
-							<input type="text" name="keyword" class="form-control me-2" placeholder="Cari nama / ID"
-								th:value="${keyword}" />
-							<button class="btn btn-primary me-2" type="submit">Cari</button>
+						<!-- Form pencarian & Filter Tanggal -->
+						<form th:action="@{/laporan/list}" method="get" class="d-flex align-items-center me-2" role="search">
+							<input type="date" name="startDate" class="form-control me-2" th:value="${startDate}" placeholder="Tgl Mulai" />
+							<input type="date" name="endDate" class="form-control me-2" th:value="${endDate}" placeholder="Tgl Selesai" />
+							
+							<input type="text" name="keyword" class="form-control me-2" placeholder="Nama / ID"
+								th:value="${keyword}" style="width: 150px;" />
+							
+							<button class="btn btn-primary me-2" type="submit">Filter</button>
 						</form>
 
 						<!-- Tombol Reset -->

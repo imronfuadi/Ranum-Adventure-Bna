@@ -1,6 +1,11 @@
 package com.ranum.adventure.bna.controller;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -42,17 +47,22 @@ public class LaporanController {
 //	}
 
 	@GetMapping("/list")
-	public String findLaporanList(Model model, @RequestParam(value = "keyword", required = false) String keyword,
+	public String findLaporanList(Model model, 
+			@RequestParam(value = "keyword", required = false) String keyword,
+			@RequestParam(value = "startDate", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
+			@RequestParam(value = "endDate", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate,
 			@RequestParam(defaultValue = "0") String page) {
-//		int pageSize = 10; // Atur sesuai kebutuhan
-//		int currentPage = Integer.parseInt(page); // Konversi page ke int
-//		Page<Penyewaan> itemPage = laporanServiceImpl.findPaginated(currentPage, pageSize);
-//		List<Penyewaan> laporanList = itemPage.getContent();
+		
 		int pageSize = 10;
 	    int currentPage = Integer.parseInt(page);
 	    Page<Penyewaan> itemPage;
 
-	    if (keyword != null && !keyword.trim().isEmpty()) {
+	    if (startDate != null && endDate != null) {
+	        // Filter berdasarkan tanggal
+	        LocalDateTime start = startDate.atStartOfDay();
+	        LocalDateTime end = endDate.atTime(LocalTime.MAX);
+	        itemPage = laporanServiceImpl.findByDateRangePaginated(start, end, currentPage, pageSize);
+	    } else if (keyword != null && !keyword.trim().isEmpty()) {
 	        // Jika ada keyword, pakai pencarian
 	        itemPage = laporanServiceImpl.searchPaginated(keyword, currentPage, pageSize);
 	    } else {
@@ -66,6 +76,8 @@ public class LaporanController {
 		model.addAttribute("currentPage", currentPage);
 		model.addAttribute("totalPages", itemPage.getTotalPages());
 		model.addAttribute("keyword", keyword);
+		model.addAttribute("startDate", startDate);
+		model.addAttribute("endDate", endDate);
 		return "/be-admin/laporan/laporan";
 	}
 	
